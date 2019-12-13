@@ -3,6 +3,20 @@
     font-family : "Montserrat", sans-serif;
     
    }
+   .thumbnail img{
+   
+     width: 100%;
+     height: auto;
+   }
+   h1 {
+     padding-top: 50px;
+     padding-bottom: 50px;
+     font-size: 100%;
+     font-family : "Montserrat", sans-serif;
+   }
+   .row {
+     padding-left: 50px;
+   }
 
 /* Navbar styling */
 .topnav{
@@ -13,13 +27,18 @@
 .topnav li {
   display: inline;
 }
-.topnav a {
+.topnav li a img{
+  width: 60px;
+  height: 33px;
+  padding: 0px 0px;
+}
+.topnav a{
   float: left;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 0;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  margin: 14px 16px;
   text-decoration: none;
 }
 .topnav a:hover{
@@ -30,12 +49,18 @@
     background-color: #d3d3d3;
     color: white;
 }
-
-h1 {
-  padding-top: 50px;
-  padding-bottom: 50px;
+/* Style all font awesome icons */
+.fa {
+  padding: 20px;
+  font-size: 100px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
 }
 
-.row {
-  padding-left: 50px;
+/* Add a hover effect if you want */
+.fa:hover {
+  opacity: 0.7;
+  color: rgb(100, 100, 100);
 }

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Adrian Kay</title>
+        <title>Begu</title>
         <link rel="icon" href="{{ url_for('static', filename='photos/begu.png') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/template.css') }}">
         <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
@@ -11,29 +11,28 @@
     </head>
     <body>
         <!-- Nav Bar -->
-        <nav>
-            <ul class="topnav">
-                <li><a href="/">About Me</a></li>
-                <li><a href="projects">Projects</a></li>
-                <li><a href = "contact">Contact Me</a></li>
-            </ul> 
-        </nav>
+        <div id="nav-placeholder">
+            {% include "nav.html" %}
+        </div>
         <!-- Adrian Kay -->
         <div class = "row">
             <div class = "col-sm-12">
                 <h1>Adrian Kay</h1>
-                <h4>Data Scientist • NYC Real Estate Acquisition Analyst </h4>
-                <h4> NYC Data Scientist Academy Alumnus • Former Arup Engineer • University College London (UCL) Graduated</h4>
+
             </div>
-            
         </div>
         
         <div class = "row">
-                <div class = "col-sm-5">  
-                    <img class = "img-thumbnail" src="{{ url_for('static', filename='photos/Adrian Kay(1).jpg') }}" alt="Adrian Kay's Photo">
+                <div class = "col-sm-5">
+                  <div class = "thumbnail">
+                      <img class = "caption" src="{{ url_for('static', filename='photos/Adrian Kay(1).jpg') }}" alt="Adrian Kay's Photo">
+                  </div>
                 </div>
                 <div class = "col-sm-7">
-                    <p>asdasd</p> 
+                    <h4> Real Estate Acquisition Analyst / Data Scientist in NYC</h4>
+                    <h4> NYC Data Scientist Academy Alumnus • Former Arup Engineer • UCL Graduated</h4>
+                    <br>
+                    <p>Civil Engineering graduate at University College London (UCL) and worked in engineering consulting and construction both in Hong Kong and the UK for 3 years. Currently in NYC as an acquisition analyst and data scientist at a real estate developer firm, combining geospatial data and public/private data to find unique opportunities around NYC.</p> 
                 </div>
         </div>
 
