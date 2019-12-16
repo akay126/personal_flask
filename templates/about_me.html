@@ -1,41 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Begu</title>
-        <link rel="icon" href="{{ url_for('static', filename='photos/begu.png') }}">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/template.css') }}">
-        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    </head>
-    <body>
-        <!-- Nav Bar -->
-        <div id="nav-placeholder">
-            {% include "nav.html" %}
-        </div>
-        <!-- Adrian Kay -->
+  {% include "head.html" %}
+    <body>  
+      <!-- Nav Bar -->
+      {% include "nav.html" %}
+      <!-- Adrian Kay -->
+      <div class = "container-fluid">
         <div class = "row">
             <div class = "col-sm-12">
                 <h1>Adrian Kay</h1>
-
+  
             </div>
         </div>
-        
         <div class = "row">
                 <div class = "col-sm-5">
-                  <div class = "thumbnail">
-                      <img class = "caption" src="{{ url_for('static', filename='photos/Adrian Kay(1).jpg') }}" alt="Adrian Kay's Photo">
+                  <div class = "figure">
+                      <img  src="{{ url_for('static', filename='photos/Adrian Kay(1).jpg') }}" alt="Adrian Kay's Photo">
                   </div>
                 </div>
                 <div class = "col-sm-7">
+                  <div class = "blocktext">
                     <h4> Real Estate Acquisition Analyst / Data Scientist in NYC</h4>
-                    <h4> NYC Data Scientist Academy Alumnus • Former Arup Engineer • UCL Graduated</h4>
+                    <h4> Former Arup Engineer • NYC Data Scientist Academy Alumnus • UCL Graduated</h4>
                     <br>
-                    <p>Civil Engineering graduate at University College London (UCL) and worked in engineering consulting and construction both in Hong Kong and the UK for 3 years. Currently in NYC as an acquisition analyst and data scientist at a real estate developer firm, combining geospatial data and public/private data to find unique opportunities around NYC.</p> 
+                    <p>Civil Engineering graduate at University College London (UCL) and worked in engineering consulting and construction both in Hong Kong and the UK for 3 years. Currently in NYC as an acquisition analyst and data scientist at a real estate developer firm, combining geospatial data and public/private data to uncover unique opportunities around NYC.</p> 
+                  </div>
                 </div>
         </div>
-
         <div class="timeline">
             <div class="container left">
               <div class="content">
@@ -49,8 +40,13 @@
                 <p>Lorem ipsum..</p>
               </div>
             </div>
-          </div>
+        </div>
 
-        
+      </div>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     </body>
+    {% include "footer.html" %}
 </html>

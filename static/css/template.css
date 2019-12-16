@@ -1,54 +1,86 @@
 * {
-    font-size: 100%;
-    font-family : "Montserrat", sans-serif;
-    
-   }
-   .thumbnail img{
-   
-     width: 100%;
-     height: auto;
-   }
-   h1 {
-     padding-top: 50px;
-     padding-bottom: 50px;
-     font-size: 100%;
-     font-family : "Montserrat", sans-serif;
-   }
-   .row {
-     padding-left: 50px;
-   }
+  font-size: 100%;
+  font-family: 'Poppins','sans-serif';
+}
+.container-fluid{
+  background-color: #d3d3d3;
+}
+.channels {
+  list-style-type: none;
+}
+
+.intro {
+  padding: 15px  0;
+  margin: 0 auto;
+}
+.intro h1{
+  font-style: initial; 
+  text-align: center;  
+  /* text-decoration: underline; */
+  padding: 0px;
+}
+/* .into span{
+  text-align: center;
+  font-size: 100px;
+  width: 5em;
+} */
+
+.figure img{
+  display: block;
+  border: 0;
+  max-width: 100%;
+  height: auto;
+}
+
+h1 {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-size: 100%;
+  font-family: 'Poppins';
+}
+/* footer css */
+footer {
+  display: block;
+  background-color: white !important;
+  text-align: center;
+  color: black;
+}
+footer a {
+  color: black;
+  font-size: 18px;
+  font-weight: 100;
+}
+footer a:hover {
+  color: #6b6b6b;
+}
+
+/* .custom-toggler.navbar-toggler {
+  border-color:white;
+} */
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
 
 /* Navbar styling */
-.topnav{
-    background-color: #d3d3d3;
-    overflow: hidden;
-    margin-top: 0px;
+.navbar-expand-lg {
+  background-color: white !important;
+  color: black;
+  overflow: hidden;
+  margin: 0px 5%;
 }
-.topnav li {
-  display: inline;
+.navbar-expand-lg li {
+  padding: 0px 10px;
 }
-.topnav li a img{
-  width: 60px;
-  height: 33px;
-  padding: 0px 0px;
+.navbar-expand-lg a {
+  color: black;
+  font-size: 18px;
+  font-weight: 100;
+  padding:  10px 20px;
 }
-.topnav a{
-  float: left;
-  font-size: 20px;
-  font-weight: 0;
-  color: white;
-  text-align: center;
-  margin: 14px 16px;
-  text-decoration: none;
+.navbar-expand-lg a:hover {
+  color: #6b6b6b;
 }
-.topnav a:hover{
-    background-color: #a9a9a9;
-    color: black;
-}
-.topnav a.active{
-    background-color: #d3d3d3;
-    color: white;
-}
+
 /* Style all font awesome icons */
 .fa {
   padding: 20px;
@@ -63,4 +95,20 @@
 .fa:hover {
   opacity: 0.7;
   color: rgb(100, 100, 100);
+}
+
+.row {
+  padding: 0px 5%;
+}
+
+.card {
+  margin: 10px 10px;
+  /* background-color: #6b6b6b; */
+}
+.card-body{
+  text-align: left;
+  letter-spacing: 0.2em;
+  line-height: 1.5em;
+  margin: 8% 5%;
+  /* background-color: #6b6b6b; */
 }

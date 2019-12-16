@@ -1,21 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Begu</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/template.css') }}">
-        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">    </head>
-    <body> 
-        <div id="nav-placeholder">
-                {% include "nav.html" %}
-            </div>
+    {% include "head.html" %}
+    <body>
+        {% include "nav.html" %}
         <!-- <div style= "background-image: url({{ url_for('static', filename='photos/Hong_Kong_housing.jpg') }})"> -->
-        <img src = "{{ url_for('static', filename='photos/Hong_Kong_housing.png') }}" alt = "Hong_Kong_housing" style = "width: 100% ; height: auto;">
-        <h1> Projects </h1>
-        <p> Flask is a micro web framework written in Python.</p>
-        <p> Applications that use the Flask framework include Pinterest,
-        LinkedIn, and the community web page for Flask itself.</p>
+        <div class = "container-fluid">
+            <div class = "row" style = "padding: 50px 0px;">
+                <div class = "intro">
+                    <h1>- Our Mission -</h1>    
+                    <p>We're are begu, a real estate platform for millennials.</p>
 
+                </div>
+                
+            </div>
+            <div class ="row">
+                <div class = "col-12">
+                    <div class = "card">
+                        <img src = "{{ url_for('static', filename='photos/Hong_Kong_housing.png') }}" alt = "Hong_Kong_housing" style = "width: 100% ; height: auto; padding: 0px 0px;margin: 0px 0px;">                    
+                    </div>
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-12 col-xl-8">
+                    <div class = "card">
+                        <div class = "card-body" >
+                            begu was co-founded by two brothers Adrian Kay and Bernard Kay. The goal is to simplify complex workflows in real estate development, construction, and acquisition into one platform, giving users from all verticals a seamless experience.
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-12 col-xl-4">
+
+                </div>
+            </div>
+
+
+        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!-- {% include "body.html" %} -->
     </body>
+    {% include "footer.html" %}
 </html>

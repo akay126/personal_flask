@@ -1,33 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Begu</title>
-        <link rel="icon" href="{{ url_for('static', filename='photos/begu.png') }}">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/template.css') }}">
-        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
+    {% include "head.html" %}
     <body> 
-        <div id="nav-placeholder">
-                {% include "nav.html" %}
-            </div>
-        <div class = "row">
+        {% include "nav.html" %}
+        <div class ="container-fluid">
+            <div class = "row">
+                    <div class = "col-sm-12">
+                        <h1>LET'S GET IN TOUCH</h1>
+                    </div>
+                </div>
+            <div class = "row">
                 <div class = "col-sm-12">
-                    <h1>LET'S GET IN TOUCH</h1>
-                </div>
-            </div>
-        <div class = "row">
-            <div class = "col-sm-12">
-                <div class = "content">
-                    <p>If you want to collaborate with us brothers, or simply want to get in touch. Please feel free to reach out :)</p>
-                </div>
-                <div class = "channels">
-                    <li><a href = "https://www.linkedin.com/in/adrian-kay/" class = "fa fa-linkedin fa-lg" target= "_blank"></a>LINKEDIN</li>
-                    <li><a href = "https://github.com/akay126" class = "fa fa-github fa-lg" target= "_blank"></a>GITHUB</li>
-                    <li><a href = "/" class = "fa fa-envelope fa-lg" target= "_blank"></a>EMAIL</li>
-                    <li><a href = "/" class = "fa fa-instagram fa-lg" target= "_blank"></a>INSTAGRAM</li>
+                    <div class = "content">
+                        <p>If you want to collaborate with us brothers, or simply want to get in touch. Please feel free to reach out :)</p>
+                    </div>
+                    <ul class = "channels">
+                        <li><a href = "https://www.linkedin.com/in/adrian-kay/" class = "fa fa-linkedin fa-lg" target= "_blank"></a>LINKEDIN</li>
+                        <li><a href = "https://github.com/akay126" class = "fa fa-github fa-lg" target= "_blank"></a>GITHUB</li>
+                        <li><a href = "/" class = "fa fa-envelope fa-lg" target= "_blank"></a>EMAIL</li>
+                        <li><a href = "/" class = "fa fa-instagram fa-lg" target= "_blank"></a>INSTAGRAM</li>
+                    </ul>
                 </div>
             </div>
         </div>
