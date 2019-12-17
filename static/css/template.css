@@ -2,11 +2,18 @@
   font-size: 100%;
   font-family: 'Poppins','sans-serif';
 }
+body{
+  background-color: #d3d3d3 !important;
+}
 .container-fluid{
-  background-color: #d3d3d3;
+  max-width: 1260px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .channels {
   list-style-type: none;
+  margin:0;
+  padding: 0;
 }
 
 .intro {
@@ -19,17 +26,11 @@
   /* text-decoration: underline; */
   padding: 0px;
 }
-/* .into span{
-  text-align: center;
-  font-size: 100px;
-  width: 5em;
-} */
-
-.figure img{
-  display: block;
-  border: 0;
-  max-width: 100%;
-  height: auto;
+.intro p{
+  font-style: initial; 
+  text-align: center;  
+  /* text-decoration: underline; */
+  padding: 0px;
 }
 
 h1 {
@@ -44,6 +45,7 @@ footer {
   background-color: white !important;
   text-align: center;
   color: black;
+  margin-bottom: -15px;
 }
 footer a {
   color: black;
@@ -62,16 +64,30 @@ footer a:hover {
 }
 
 /* Navbar styling */
+/* .navbar-masthead {
+  display: block;
+  min-height: 30px;
+  overflow: hidden;
+  position: relative;
+} */
+
 .navbar-expand-lg {
   background-color: white !important;
+}
+.navbar-expand-lg .container {
   color: black;
-  overflow: hidden;
-  margin: 0px 5%;
+  /* overflow: hidden; */
+  /* margin: 0px 5%; */
+  max-width: 1260px;
+  margin-left: auto ;
+  margin-right: auto;
+  
 }
 .navbar-expand-lg li {
   padding: 0px 10px;
 }
 .navbar-expand-lg a {
+
   color: black;
   font-size: 18px;
   font-weight: 100;
@@ -79,6 +95,7 @@ footer a:hover {
 }
 .navbar-expand-lg a:hover {
   color: #6b6b6b;
+  text-decoration: underline;
 }
 
 /* Style all font awesome icons */
@@ -97,18 +114,32 @@ footer a:hover {
   color: rgb(100, 100, 100);
 }
 
-.row {
-  padding: 0px 5%;
-}
-
 .card {
-  margin: 10px 10px;
+  /* margin: 10px 5px; */
+  margin-bottom: 20px;
+  /* width: 100%; */
+  /* height: auto; */
+  border: none;
   /* background-color: #6b6b6b; */
 }
 .card-body{
   text-align: left;
   letter-spacing: 0.2em;
   line-height: 1.5em;
-  margin: 8% 5%;
   /* background-color: #6b6b6b; */
 }
+.card img{
+  display: block;
+  border: none;
+  width: 100%;
+  height: auto;
+}
+.card iframe{
+  display: block;
+  border: none;
+  width: 100%;
+  height: 500px;
+}
+/* .card img:hover{
+  opacity: 70%;
+} */
