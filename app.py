@@ -1,6 +1,10 @@
 from flask import Flask, render_template
 
 app = Flask(__name__)
+app.config.from_object(__name__)
+
+app.config.from_envvar('APP_CONFIG_FILE', silent=True)
+MAPBOX_ACCESS_KEY = app.config['MAPBOX_ACCESS_KEY']
 
 @app.route("/")
 def home():
@@ -17,6 +21,13 @@ def projects():
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
+
+@app.route('/platform')
+def platform():
+    return render_template(
+        'platform.html', 
+        ACCESS_KEY=MAPBOX_ACCESS_KEY
+    )
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 if __name__ == "__main__":
     app.run(debug=True)
