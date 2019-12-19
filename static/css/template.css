@@ -38,10 +38,13 @@ body{
 .border-bottom{
   border-bottom: 2px solid #000000!important;
 }
-
+.profile{
+  /* padding-top: 1.5rem; */
+  /* padding-bottom: 3rem; */
+  margin-bottom: 1.5rem;
+}
 .profile h1{
   padding-bottom: 25px;
-
 }
 
 /* footer css */
