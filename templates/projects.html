@@ -1,21 +1,134 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    {% include "head.html" %}
-    <body> 
-        {% include "nav.html" %}
-        <div class = "container-fluid">
-            <!-- <div class="row" style="padding: 50px 0px;"> -->
-                <div class="intro border-bottom">
-                    <h1>Projects</h1>
+{% include "head.html" %}
+
+<body>
+    {% include "nav.html" %}
+    <div class="container-fluid">
+        <div class="intro border-bottom">
+            <h1>Market</h1>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="image-hover">
+                        <img src="{{ url_for('static', filename='photos/NYC.jpg') }}" alt="Coding" class="image"
+                            style="width: 100% ; height: auto;">
+                        <div class="image-middle">
+                            <div class="image-text">New York City</div>
+                        </div>
+                    </div>
                 </div>
-            <!-- </div> -->
-            <div class = "row">
-                <p> Flask is a micro web framework written in Python.</p>
-                <p> Applications that use the Flask framework include Pinterest,
-                LinkedIn, and the community web page for Flask itself.</p>                
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="image-hover">
+                        <img src="{{ url_for('static', filename='photos/HK2.jpg') }}" alt="Coding" class="image"
+                            style="width: 100% ; height: auto;">
+                        <div class="image-middle">
+                            <div class="image-text">Hong Kong</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="intro border-bottom">
+            <h1>Services</h1>
+        </div>
+        <!-- </div> -->
+        <!-- <div class="row">
+            
+            <div class="col-12">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='photos/Workflow.png') }}" alt="Workflow"
+                        style="width: 100% ; height: auto; padding: 0px 0px;margin: 20px auto;">
+                </div>
+            </div>
+        </div> -->
+        <!-- Web-Scrap -->
+        <div class="row">
+            <div class="col-12 col-md-5">
+                <div class="card">
+                    <div class="image-hover">
+                        <img src="{{ url_for('static', filename='photos/coding.jpg') }}" alt="Coding" class="image"
+                            style="width: 100% ; height: auto;">
+                        <div class="image-middle">
+                            <div class="image-text">Data Collection</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 col-md-7 d-flex align-items-stretch">
+                <div class="card">
+                    <div class="card-body" style="padding: 75px;">
+                        <div class="card-text">
+                            <h3>Data Collection</h3>
+                            Data is collected from various sources including public and private sectors by
+                            web-scraping or with public APIs and aggregated for analytics.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Date Row -->
+        <div class="row">
+            <div class="col-12 col-md-5">
+                <div class="card">
+                    <div class="image-hover">
+                        <img src="{{ url_for('static', filename='photos/process-bnw.png') }}" alt="Keyboards"
+                            class="image" style="width: 100% ; height: auto;">
+                        <div class="image-middle">
+                            <div class="image-text">Geo-Coding</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 col-md-7 d-flex align-items-stretch">
+                <div class="card">
+                    <div class="card-body" style="padding: 75px;">
+                        <div class="card-text">
+                            <h3>Geo-Coding</h3>
+                            Geo-Coding is the process to link data to an address or a global coordinate system. This
+                            adds more context and depth to the data. Driving better analytics and foresight for real
+                            estate market.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-5">
+                <div class="card">
+                    <div class="image-hover">
+                        <img src="{{ url_for('static', filename='photos/NYC_hex.jpg') }}" alt="Keyboards"
+                            class="image" style="width: 100% ; height: auto;">
+
+                        <div class="image-middle">
+                            <div class="image-text">Data</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- d-flex align-items-stretch -->
+            <div class="col-12 col-md-7 d-flex align-items-stretch">
+                <div class="card">
+                    <div class="card-body" style="padding: 75px;">
+                        <div class="card-text">
+                            <h3>Geospatial Analytics</h3>
+                            Geographic Information System (GIS) is used to visualize data through maps to track trends
+                            and outliers in one single frame.
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-    </body>
-    {% include "footer.html" %}
+    </div>
+
+</body>
+{% include "footer.html" %}
+
 </html>

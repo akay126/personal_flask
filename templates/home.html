@@ -4,28 +4,23 @@
 
 <body>
     {% include "nav.html" %}
-    <!-- <div style= "background-image: url({{ url_for('static', filename='photos/Hong_Kong_housing.jpg') }})"> -->
     <div class="container-fluid">
-        <!-- <div class="row pb-5 mb-5 border-bottom" style="padding: 50px 0px;"> -->
-            <div class="intro border-bottom">
-                <h1>- Our Mission -</h1>
-                <p>We're begu, a real estate analytics platform built for millennials.</p>
-
-            </div>
-        <!-- </div> -->
+        <div class="intro border-bottom">
+            <h1>Welcome</h1>
+            <p>We're begu, a real estate analytics platform built for the masses.</p>
+        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <!-- <iframe src = "https://api.mapbox.com/styles/v1/berncool/cjndkardf1ikx2rnw9n8i7inj.html?fresh=true&title=view&access_token=pk.eyJ1IjoiYmVybmNvb2wiLCJhIjoiY2oyMzh1emZtMDB0MjM3cWltZGx6cmk0ciJ9.Q6kd7Y7rxkX43cWlZlB2bQ#14.3/22.279361/114.182375/200" ></iframe> -->
-                    <img src="{{ url_for('static', filename='photos/Hong_Kong_housing.png') }}" alt="Hong_Kong_housing"
-                        style="width: 100% ; height: auto; padding: 0px 0px;margin: 0px 0px;">
+                    <img src="{{ url_for('static', filename='photos/NYC_dark.png') }}" alt="Hong_Kong_housing"
+                        style="width: 100% ; height: auto;">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12 col-md-7 d-flex align-items-stretch">
                 <div class="card">
-                    <div class="card-body" style="margin: 20% 3rem;">
+                    <div class="card-body" style="padding: 75px;">
                         <div class="card-text">
                             begu was founded by two brothers Adrian Kay and Bernard Kay. The goal is to simplify complex
                             workflows in real estate development, construction, and acquisition into one platform,
@@ -36,10 +31,15 @@
             </div>
             <div class="col-12 col-md-5">
                 <div class="card">
-
-                    <img src="{{ url_for('static', filename='photos/AB.jpg') }}" alt="Founder's Photo"
-                        style="width: 100% ; height: auto; padding: 0px 0px;margin: 0px 0px;">
-
+                    <div class="image-hover">
+                        <a href="about">
+                            <img src="{{ url_for('static', filename='photos/AB-bnw.png') }}" alt="AB KAY" class="image"
+                                style="width: 100% ; height: auto;">
+                        </a>
+                        <div class="image-middle">
+                            <a class="image-text" href="about">The Team</a>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -47,17 +47,53 @@
         <div class="row">
             <div class="col-12 col-md-5">
                 <div class="card">
-                    <ul class="home_info">
-                        <li><a href="mailto::beguhk@gmail.com" class="fa fa-envelope fa-lg" target="_blank"></a>
-                            <a href="mailto::beguhk@gmail.com" target="_blank">BEGUHK@GMAIL.COM</a></li>
-                        <li><a href="https://www.instagram.com/beguhk/" class="fa fa-instagram fa-lg" target="_blank"></a>
-                            <a href = "https://www.instagram.com/beguhk/"target="_blank" >INSTAGRAM.COM/BEGUHK</a></li>
-                    </ul>
+                    <div class="image-hover">
+                        <a href="projects">
+                            <img src="{{ url_for('static', filename='photos/process-bnw.png') }}" alt="Keyboards"
+                                class="image" style="width: 100% ; height: auto;">
+                        </a>
+                        <div class="image-middle">
+                            <a class="image-text" href="projects">The Process</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- d-flex align-items-stretch -->
+            <div class="col-12 col-md-7 d-flex align-items-stretch">
+                <div class="card">
+                    <div class="card-body" style="padding: 75px;">
+                        <div class="card-text">
+                            The goal is to revamp how we envision the real estate market with a more wholesome
+                            experience. Combining our experiences in architecture, engineering, and acquisition  together
+                            to help buyers and sellers make better decisions.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-5 d-flex align-items-stretch">
+                <div class="card">
+                    <div class="card-body" style="margin: 5% 3rem;">
+                        <h4>LET'S GET IN TOUCH</h4>
+                        <p>If you want to collaborate with us brothers, or simply want to get in touch. Please feel free
+                            to reach out :)</p>
+                        <ul class="home_info" style="padding-left: 0px;">
+                            <li><a href="mailto::beguhk@gmail.com" class="fa fa-envelope fa-lg" target="_blank"></a>
+                                <a href="mailto::beguhk@gmail.com" target="_blank">BEGUHK@GMAIL.COM</a></li>
+                            <li><a href="https://www.instagram.com/beguhk/" class="fa fa-instagram fa-lg"
+                                    target="_blank"></a>
+                                <a href="https://www.instagram.com/beguhk/" target="_blank">INSTAGRAM.COM/BEGUHK</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="col-12 col-md-7">
                 <div class="card">
-
+                    <img src="{{ url_for('static', filename='photos/Hong_Kong_housing.png') }}" alt="HK Hosuing"
+                        style="width: 100% ; height: auto;">
                 </div>
             </div>
 
