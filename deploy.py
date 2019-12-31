@@ -22,12 +22,18 @@ def projects():
 def contact():
     return render_template("contact.html")
 
-@app.route('/platform')
+@app.route('/hk')
 def platform():
     return render_template(
-        'platform.html', 
+        'platform_hk.html', 
         ACCESS_KEY=MAPBOX_ACCESS_KEY
     )
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-# if __name__ == "__main__":
-#     app.run(debug=True)
+
+@app.route('/nyc')
+def platform_us():
+    return render_template(
+        'platform_us.html', 
+        ACCESS_KEY=MAPBOX_ACCESS_KEY
+    )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+if __name__ == "__main__":
+    app.run(debug=True)

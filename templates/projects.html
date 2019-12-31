@@ -15,7 +15,7 @@
                         <img src="{{ url_for('static', filename='photos/NYC.jpg') }}" alt="Coding" class="image"
                             style="width: 100% ; height: auto;">
                         <div class="image-middle">
-                            <div class="image-text">New York City</div>
+                            <a class="image-text" href = "nyc">New York City</a>
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                         <img src="{{ url_for('static', filename='photos/HK2.jpg') }}" alt="Coding" class="image"
                             style="width: 100% ; height: auto;">
                         <div class="image-middle">
-                            <div class="image-text">Hong Kong</div>
+                            <a class="image-text" href = "hk">Hong Kong</a>
                         </div>
                     </div>
                 </div>
@@ -102,11 +102,11 @@
             <div class="col-12 col-md-5">
                 <div class="card">
                     <div class="image-hover">
-                        <img src="{{ url_for('static', filename='photos/NYC_hex.jpg') }}" alt="Keyboards"
+                        <img src="{{ url_for('static', filename='photos/NYC_hex.JPG') }}" alt="Hex"
                             class="image" style="width: 100% ; height: auto;">
 
                         <div class="image-middle">
-                            <div class="image-text">Data</div>
+                            <div class="image-text">Geospatial Analytics</div>
                         </div>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                 </div>
             </div>
         </div>
-
+        {% include "body.html" %}
     </div>
 
 </body>
