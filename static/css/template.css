@@ -6,6 +6,11 @@ body{
   background-color: #d3d3d3 !important;
 }
 .container-fluid{
+  /* max-width: 1260px; */
+  margin-left: auto;
+  margin-right: auto;
+}
+.container{
   max-width: 1260px;
   margin-left: auto;
   margin-right: auto;

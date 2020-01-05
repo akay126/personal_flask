@@ -1,112 +1,86 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-{% include "head.html" %}
+{% extends 'layout.html' %}
 
-<body>
-  <!-- Nav Bar -->
-  {% include "nav.html" %}
-  <!-- Adrian Kay -->
-  <div class="container-fluid">
-    <!-- <div class="row border-bottom"> -->
-    <div class="intro border-bottom">
-      <h1>Team</h1>
+{% block body %}
+<div class="container-fluid">
+  <!-- <div class="row border-bottom"> -->
+  <div class="intro border-bottom">
+    <h1>Team</h1>
+  </div>
+  <!-- </div> -->
+  <div class="profile">
+    <div class="row">
+      <div class="col-xl-12">
+        <h1>Adrian Kay</h1>
+      </div>
     </div>
-    <!-- </div> -->
-    <div class="profile">
-      <div class="row">
-        <div class="col-xl-12">
-          <h1>Adrian Kay</h1>
+    <div class="row border-bottom">
+      <div class="col-xl-4">
+        <div class="card">
+          <img src="{{ url_for('static', filename='photos/Adrian_Kay.jpg') }}" alt="Adrian Kay's Photo">
         </div>
       </div>
-      <div class="row border-bottom">
-        <div class="col-xl-4">
-          <div class="card">
-            <img src="{{ url_for('static', filename='photos/Adrian_Kay.jpg') }}" alt="Adrian Kay's Photo">
+      <div class="col-xl-8 d-flex align-items-stretch">
+        <div class="card">
+          <div class="card-body" style="margin: auto 1.25rem;">
+            <h4 class="card-title"> Real Estate Acquisition Analyst / Data Scientist in NYC</h4>
+            <h4 class="card-subtitle"> Former Arup Engineer • NYCDSA Alumnus • UCL Graduate</h4>
+            <br>
+            <p class="card-text">Civil Engineering graduate at University College London (UCL) and worked in
+              engineering consulting and construction both in Hong Kong and the UK for 3 years. Currently in NYC as an
+              acquisition analyst and data scientist at a real estate developer firm, combining geospatial data and
+              public/private data to uncover unique opportunities around NYC.</p>
+            <div class="channels">
+              <ul class="list-inline">
+                <li class="list-inline-item"><a href="https://www.linkedin.com/in/adrian-kay/" class="fa fa-linkedin fa-lg" target="_blank"></a></li>
+                <li class="list-inline-item"><a href="https://medium.com/@adrianhkay" class="fa fa-medium fa-lg" target="_blank"></a></li>
+                <li class="list-inline-item"><a href="https://github.com/akay126" class="fa fa-github fa-lg" target="_blank"></a></li>
+                <li class="list-inline-item"><a href="mailto:adrianhkay@gmail.com" class="fa fa-envelope fa-lg" target="_blank"></a></li>
+                <li class="list-inline-item"><a href="https://www.instagram.com/sleepygoat126/" class="fa fa-instagram fa-lg" target="_blank"></a></li>
+
+                <li class="list-inline-item"><a href="">More</a></li>
+              </ul>
+            </div>
           </div>
         </div>
-        <div class="col-xl-8 d-flex align-items-stretch">
-          <div class="card">
-            <div class="card-body" style="margin: auto 1.25rem;">
-              <h4 class="card-title"> Real Estate Acquisition Analyst / Data Scientist in NYC</h4>
-              <h4 class="card-subtitle"> Former Arup Engineer • NYCDSA Alumnus • UCL Graduate</h4>
-              <br>
-              <p class="card-text">Civil Engineering graduate at University College London (UCL) and worked in
-                engineering consulting and construction both in Hong Kong and the UK for 3 years. Currently in NYC as an
-                acquisition analyst and data scientist at a real estate developer firm, combining geospatial data and
-                public/private data to uncover unique opportunities around NYC.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Bernard Kay -->
+  <div class="profile">
+    <div class="row">
+      <div class="col-xl-12">
+        <h1>Bernard Kay</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-4">
+        <div class="card">
+          <img src="{{ url_for('static', filename='photos/bernard_kay.jfif') }}" alt="Adrian Kay's Photo">
+        </div>
+      </div>
+      <div class="col-xl-8 d-flex align-items-stretch">
+        <div class="card">
+          <div class="card-body" style="margin: auto 1.25rem;">
+            <h4 class="card-title"> Professional Architect in HK</h4>
+            <h4 class="card-subtitle"> Former HK Olympic Sailor • HKU and Bath Graduate</h4>
+            <br>
+            <p class="card-text">Graduated at University of Bath and Masters with Distinction at University of Hong
+              Kong. Researched the correlation between Urban Renewal and Housing Prices. Currently a practising
+              architect in Hong Kong, working on residential and commerical projects. Specialty in generating
+              development parameter study for developers.</p>
               <div class="channels">
                 <ul class="list-inline">
-                  <li class="list-inline-item"><a href="https://www.linkedin.com/in/adrian-kay/" class="fa fa-linkedin fa-lg" target="_blank"></a></li>
-                  <li class="list-inline-item"><a href="https://medium.com/@adrianhkay" class="fa fa-medium fa-lg" target="_blank"></a></li>
-                  <li class="list-inline-item"><a href="https://github.com/akay126" class="fa fa-github fa-lg" target="_blank"></a></li>
-                  <li class="list-inline-item"><a href="mailto:adrianhkay@gmail.com" class="fa fa-envelope fa-lg" target="_blank"></a></li>
-                  <li class="list-inline-item"><a href="https://www.instagram.com/sleepygoat126/" class="fa fa-instagram fa-lg" target="_blank"></a></li>
-
+                  <li class="list-inline-item"><a href="https://www.linkedin.com/in/bernard-kay-91088ba1/" class="fa fa-linkedin fa-lg" target="_blank"></a></li>
+                  <li class="list-inline-item"><a href="mailto:bernardkay93@gmail.com " class="fa fa-envelope fa-lg" target="_blank"></a></li>
+                  <li class="list-inline-item"><a href="https://www.instagram.com/lava_story/" class="fa fa-instagram fa-lg" target="_blank"></a></li>
                   <li class="list-inline-item"><a href="">More</a></li>
                 </ul>
               </div>
-            </div>
+            
           </div>
         </div>
       </div>
     </div>
-    <!-- Bernard Kay -->
-    <div class="profile">
-      <div class="row">
-        <div class="col-xl-12">
-          <h1>Bernard Kay</h1>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xl-4">
-          <div class="card">
-            <img src="{{ url_for('static', filename='photos/bernard_kay.jfif') }}" alt="Adrian Kay's Photo">
-          </div>
-        </div>
-        <div class="col-xl-8 d-flex align-items-stretch">
-          <div class="card">
-            <div class="card-body" style="margin: auto 1.25rem;">
-              <h4 class="card-title"> Professional Architect in HK</h4>
-              <h4 class="card-subtitle"> Former HK Olympic Sailor • HKU and Bath Graduate</h4>
-              <br>
-              <p class="card-text">Graduated at University of Bath and Masters with Distinction at University of Hong
-                Kong. Researched the correlation between Urban Renewal and Housing Prices. Currently a practising
-                architect in Hong Kong, working on residential and commerical projects. Specialty in generating
-                development parameter study for developers.</p>
-                <div class="channels">
-                  <ul class="list-inline">
-                    <li class="list-inline-item"><a href="https://www.linkedin.com/in/bernard-kay-91088ba1/" class="fa fa-linkedin fa-lg" target="_blank"></a></li>
-                    <li class="list-inline-item"><a href="mailto:bernardkay93@gmail.com " class="fa fa-envelope fa-lg" target="_blank"></a></li>
-                    <li class="list-inline-item"><a href="https://www.instagram.com/lava_story/" class="fa fa-instagram fa-lg" target="_blank"></a></li>
-                    <li class="list-inline-item"><a href="">More</a></li>
-                  </ul>
-                </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- <div class="timeline">
-            <div class="container left">
-              <div class="content">
-                <h2>2017</h2>
-                <p>Lorem ipsum..</p>
-              </div>
-            </div>
-            <div class="container right">
-              <div class="content">
-                <h2>2016</h2>
-                <p>Lorem ipsum..</p>
-              </div>
-            </div>
-        </div> -->
-
   </div>
-  {% include "body.html" %}
-
-</body>
-{% include "footer.html" %}
-
-</html>
+</div>
+{% endblock %}
