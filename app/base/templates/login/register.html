@@ -1,16 +1,10 @@
 {% extends "layout.html" %}
 
+{% block title %} Register {% endblock %} 
+
 {% block body %}
-<header class="text-align-center">
-  <h4>
-      {% if msg %}
-          {{ msg | safe }}
-      {% else %}
-          Sign In
-      {% endif %}    
-  </h4>
-</header>
-<section class="widget login-widget">
+<div class = "container">
+  <section class="widget login-widget">
   <form role="form" method="post" action="">
     {{ form.hidden_tag() }}
     <fieldset>
@@ -45,7 +39,7 @@
   
       <div class="form-group">
         <label for="password">Password</label>
-  
+
         <div class="input-group input-group-lg">
           <span class="input-group-addon">
             <i class="fa fa-lock"></i>
@@ -62,6 +56,8 @@
       <a class="forgot" href={{url_for('base_blueprint.login')}} >Have an account? Login</a>
     </div>
   </form>
-</section>
+  </section>
+</div>
+
 
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-
+{% block title %} Demo NYC {% endblock %}
 {% block head%}
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.0/mapbox-gl.js"></script>
@@ -48,7 +48,7 @@
 {% block body %}
 <div class = container-fluid>
   <div class = "row">
-    <div class = "col-12 col-md-8">
+    <div class = "col-12 col-md-6">
       <div id="map"></div>
       <div id="age-legend" class="legend">
           <h5>Price per ZFA</h5>
@@ -56,8 +56,12 @@
           <div><span style="background-color: hsla(30, 100%, 60%,0.5)"></span>1,500</div>
         </div>
     </div>
-    <div class = "col-12 col-md-4">
-      <pre id="features"></pre>
+    <div class = "col-12 col-md-6">
+      <!-- <p id="tableData"></p> -->
+      <table>
+        <tbody id="tableData"></tbody>
+    </table>
+      <!-- <pre id="features"></pre> -->
     </div>
   </div>
 </div>

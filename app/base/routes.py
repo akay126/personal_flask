@@ -34,10 +34,12 @@ def create_user():
 
         user = User.query.filter_by(username=username).first()
         if user:
+            flash('Username already registered', 'danger' )
             return render_template( 'login/register.html', msg='Username already registered', form=create_account_form)
 
         user = User.query.filter_by(email=email).first()
         if user:
+            flash('Email already registered', 'danger' )
             return render_template( 'login/register.html', msg='Email already registered', form=create_account_form)
 
         # else we can create the user
@@ -45,7 +47,8 @@ def create_user():
         db.session.add(user)
         db.session.commit()
 
-        return render_template( 'login/register.html', msg='User created please <a href="/login">login</a>', form=create_account_form)
+        flash('User created please login', 'success' )
+        return render_template( 'login/login.html', form=create_account_form)
 
     else:
         return render_template( 'login/register.html', form=create_account_form)

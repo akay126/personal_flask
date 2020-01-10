@@ -1,15 +1,17 @@
-<nav class = "navbar navbar-expand-lg">
-    <div class = "container">
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
         <a class="navbar-brand d-flex mr-auto" href="/">
-            <img src="{{ url_for('static', filename='photos/begu.png') }}" width = "60" height = "33" class="d-inline-block align-top"  alt="Begu Logo">
+            <img src="{{ url_for('static', filename='photos/begu.png') }}" width="60" height="33"
+                class="d-inline-block align-top" alt="Begu Logo">
         </a>
-        <button class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon my-toggler"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href = "/">Home</a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about">Team</a>
@@ -21,17 +23,19 @@
                     <a class="nav-link" href = "contact">Contact Us</a>
                 </li> -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Demo
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Demo
                     </a>
                     <div class="dropdown dropdown-menu" aria-labelledby="#navbarDropdownMenuLink">
-                      <a class="dropdown dropdown-item" href="nyc">New York City</a>
-                      <a class="dropdown dropdown-item" href="hk">Hong Kong</a>
+                        <a class="dropdown dropdown-item" href="nyc">New York City</a>
+                        <a class="dropdown dropdown-item" href="hk">Hong Kong</a>
                     </div>
-                  </li>
-                <li><a href = "create_user" type="button" class="btn btn-primary btn-sm" target="_blank">Resigter</a></li>
-            </ul> 
+                </li>
+                <li><a href="create_user" type="button" class="btn btn-primary btn-sm"
+                        target="_blank">Resigter/Login</a></li>
+            </ul>
         </div>
     </div>
-</nav>
 
+</nav>

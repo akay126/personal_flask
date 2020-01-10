@@ -136,14 +136,14 @@ footer a:hover {
   margin-right: auto;
 }
 .navbar-expand-lg li {
-  padding: 0px 10px;
+  padding: 0px 0.3rem;
 }
 .navbar-expand-lg a {
 
   color: black;
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 100;
-  padding:  10px 20px;
+  padding:  0.5rem  0.5rem;
 }
 .navbar-expand-lg a:hover {
   color: #6b6b6b;
@@ -169,16 +169,19 @@ footer a:hover {
   /* margin: 10px 5px; */
   /* width: 100% !important; 
   height: auto !important; */
+  /* width: 50vw;  */
   margin-bottom: 20px;
   /* width: 100%; */
   /* height: auto; */
   border: none;
+  
   /* background-color: #6b6b6b; */
 }
 .card-body{
   text-align: left;
   letter-spacing: 0.2em;
   line-height: 1.5em;
+  margin: auto;
   /* background-color: #6b6b6b; */
 }
 .card img{
@@ -197,92 +200,164 @@ footer a:hover {
   opacity: 70%;
 } */
 
-
-
-/***********************************/
-/**          LOGIN                **/
-/**********************************/
-.single-widget-container {
-  left: 0;
-  top: 50%;
-  margin-top: -192.5px;
-  position: absolute;
-  width: 100%;
+div.timeline,
+a.box-content{
+  font-size: .75rem;
 }
 
-.single-widget-container .widget {
-  margin: 0 auto;
+.timeline{
+  margin-top:20px;
+  position:relative;
+  
 }
 
-.login-widget, .registration-widget {
-  width: 350px;
-  padding-bottom: 0;
+.timeline:before{
+  position:absolute;
+  content:'';
+  width:4px;
+  height:calc(100% + 50px);
+background: rgb(138,145,150);
+background: -moz-linear-gradient(left, rgba(138,145,150,1) 0%, rgba(122,130,136,1) 60%, rgba(98,105,109,1) 100%);
+background: -webkit-linear-gradient(left, rgba(138,145,150,1) 0%,rgba(122,130,136,1) 60%,rgba(98,105,109,1) 100%);
+background: linear-gradient(to right, rgba(138,145,150,1) 0%,rgba(122,130,136,1) 60%,rgba(98,105,109,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8a9196', endColorstr='#62696d',GradientType=1 );
+  left:14px;
+  top:5px;
+  border-radius:4px;
 }
 
-.login-widget header, .registration-widget header {
-  margin: 15px 0 25px 0;
+.timeline-month{
+  position:relative;
+  padding:4px 15px 4px 35px;
+  background-color:#dadada;
+  display:inline-block;
+  width:auto;
+  border-radius:40px;
+  border:1px solid #17191B;
+  border-right-color:black;
+  margin-bottom:30px;
 }
 
-.login-widget .form-control, .registration-widget .form-control {
-  font-size: 13px;
+.timeline-month span{
+  position:absolute;
+  top:-1px;
+  left:calc(100% - 10px);
+  z-index:-1;
+  white-space:nowrap;
+  display:inline-block;
+  background-color:rgb(150, 150, 150);
+  padding:4px 10px 4px 20px;
+  border-top-right-radius:40px;
+  border-bottom-right-radius:40px;
+  border:1px solid black;
+  box-sizing:border-box;
 }
 
-.login-widget .input-group-addon, .registration-widget .input-group-addon {
-  padding: 8px 7px;
+.timeline-month:before{
+  position:absolute;
+  content:'';
+  width:20px;
+  height:20px;
+background: rgb(138,145,150);
+background: -moz-linear-gradient(top, rgba(138,145,150,1) 0%, rgba(122,130,136,1) 60%, rgba(112,120,125,1) 100%);
+background: -webkit-linear-gradient(top, rgba(138,145,150,1) 0%,rgba(122,130,136,1) 60%,rgba(112,120,125,1) 100%);
+background: linear-gradient(to bottom, rgba(138,145,150,1) 0%,rgba(122,130,136,1) 60%,rgba(112,120,125,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8a9196', endColorstr='#70787d',GradientType=0 );
+  border-radius:100%;
+  border:1px solid #17191B;
+  left:5px;
 }
 
-.login-widget .input-group-addon i, .login-widget .input-group-addon i:before, .login-widget .input-group-addon i:after, .registration-widget .input-group-addon i, .registration-widget .input-group-addon i:before, .registration-widget .input-group-addon i:after {
-  width: 20px;
-  margin: 0;
+.timeline-section{
+  padding-left:35px;
+  display:block;
+  position:relative;
+  margin-bottom:30px;
 }
 
-.login-widget .form-actions, .registration-widget .form-actions {
-  margin: 0 -17px;
-  padding: 20px 15px 0 15px;
+.timeline-date{
+  margin-bottom:15px;
+  padding:2px 15px;
+  background:linear-gradient(#74cae3, #5bc0de 60%, #4ab9db);
+  position:relative;
+  display:inline-block;
+  border-radius:20px;
+  border:1px solid #17191B;
+  color:#fff;
+text-shadow:1px 1px 1px rgba(0,0,0,0.3);
+}
+.timeline-section:before{
+  content:'';
+  position:absolute;
+  width:30px;
+  height:1px;
+  background-color:#444950;
+  top:12px;
+  left:20px;
 }
 
-.login-widget .form-actions .small-circle, .registration-widget .form-actions .small-circle {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.2);
+.timeline-section:after{
+  content:'';
+  position:absolute;
+  width:10px;
+  height:10px;
+  background:linear-gradient(to bottom, rgba(138,145,150,1) 0%,rgba(122,130,136,1) 60%,rgba(112,120,125,1) 100%);
+  top:7px;
+  left:11px;
+  border:1px solid #17191B;
+  border-radius:100%;
 }
 
-.login-widget .form-actions .small-circle i, .registration-widget .form-actions .small-circle i {
-  position: relative;
-  left: 1px;
+.timeline-section .col-sm-4{
+  margin-bottom:15px;
 }
 
-.login-widget .form-actions .forgot, .registration-widget .form-actions .forgot {
-  display: block;
-  text-align: center;
-  color: white;
-  padding: 15px 0;
+.timeline-box{
+  position:relative;
+  
+ background-color:rgb(150, 150, 150);
+  border-radius:15px;
+  border-top-left-radius:0px;
+  border-bottom-right-radius:0px;
+  border:1px solid #17191B;
+  transition:all 0.3s ease;
+  overflow:hidden;
 }
 
-.login-widget footer, .registration-widget footer {
-  margin: 0 -17px;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-  overflow: hidden;
-  position: static;
+.box-icon{
+  position:absolute;
+  right:5px;
+  top:0px;
 }
 
-.login-widget .facebook-login, .registration-widget .facebook-login {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 30px;
-  background: #4e85bd;
-  text-align: center;
-  padding-top: 10px;
+.box-title{
+  padding:5px 15px;
+  border-bottom: 1px solid #17191B;
 }
 
-.login-widget .facebook-login a, .registration-widget .facebook-login a {
-  color: #ffffff;
-  display: block;
-  text-shadow: none;
-  text-decoration: none;
+.box-title i{
+  margin-right:5px;
+}
+
+.box-content{
+  padding:5px 15px;
+  background-color:#dadada;
+}
+
+.box-content strong{
+  color:#666;
+  font-style:italic;
+  margin-right:5px;
+}
+
+.box-item{
+  margin-bottom:5px;
+}
+
+.box-footer{
+ padding:5px 15px;
+  border-top: 1px solid #17191B;
+  background-color:#444950;
+  text-align:right;
+  font-style:italic;
 }
