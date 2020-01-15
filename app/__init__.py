@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_assets import Environment, Bundle
 from flask_login import LoginManager
 
 from flask_sqlalchemy import SQLAlchemy
@@ -36,4 +37,8 @@ def create_app(config):
     register_extensions(app)
     register_blueprints(app)
     configure_database(app)
+    # assets = Environment(app)
+    # js = Bundle('base/static/css/.js', 'base.js', 'widgets.js',
+    #         filters='jsmin', output='gen/packed.js')
+    # assets.register('js_all', js)
     return app
