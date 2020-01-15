@@ -194,20 +194,16 @@ function CreateTimelineDataDOB(boro, block, lot) {
     var block = pad(block, 5)
     var lot = pad(lot, 5)
     var request = new XMLHttpRequest();
-    request.open('GET', `https://data.cityofnewyork.us/resource/ipu4-2q9a.json?borough=${boro}&block=${block}&lot=${lot}`, /* async = */ false);
+    request.open('GET', `https://data.cityofnewyork.us/resource/ic3t-wcy2.json?borough=${boro}&block=${block}&lot=${lot}`, /* async = */ false);
 
     request.send();
     if (request.readyState == 4 & request.status == 200) {
         var res = request.responseText;
         var json = JSON.parse(res);
         var json = json.sort(sortByProperty('filing_date'));
-        // for (var i in json){
-        //     var doc_id =  json[i]["document_id"];
-        //     var doc_data = CreateTimelineDataDoc(doc_id);
-        //     json[i] = Object.assign({}, json[i], doc_data);
-        // }
-        // document.getElementById('DOBData').innerHTML = json2table(json,'table',[]);
-        document.getElementById('DOBData').innerHTML = JSON.stringify(json, null, 2);
+        var cols = ['job__','fully_permitted','job_type','job_status_descrp','other_description','initial_cost'];
+        document.getElementById('DOBData').innerHTML = json2table(json,'table',cols);
+        // document.getElementById('DOBData').innerHTML = JSON.stringify(json, null, 2);
     }
     return json
 
@@ -228,6 +224,7 @@ var map = new mapboxgl.Map({
     zoom: 15 // starting zoom
     // maxBounds: bounds
 });
+
 map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.FullscreenControl());
 // Add geolocate control to the map.
@@ -361,3 +358,37 @@ map.on('mouseleave', 'pluto-fills', function () {
     }
     hoveredStateId = null;
 });
+
+
+
+
+
+var toggleableLayerIds = ['pluto-fills', 'price_zfa'];
+ 
+for (var i = 0; i < toggleableLayerIds.length; i++) {
+var id = toggleableLayerIds[i];
+ 
+var link = document.createElement('a');
+link.href = '#';
+link.className = 'active';
+link.textContent = id;
+ 
+link.onclick = function(e) {
+var clickedLayer = this.textContent;
+e.preventDefault();
+e.stopPropagation();
+ 
+var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+ 
+if (visibility === 'visible') {
+map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+this.className = '';
+} else {
+this.className = 'active';
+map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+}
+};
+ 
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+}

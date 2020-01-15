@@ -10,10 +10,12 @@
     margin: 0;
     padding: 0;
   }
+
   #map {
     max-width: 100%;
     height: 700px;
   }
+
   .legend {
     background-color: rgba(104, 104, 104, 0.85);
     color: azure;
@@ -23,7 +25,8 @@
     font: 12px/20px 'Poppins', 'sans-serif';
     padding: 10px;
     position: absolute;
-    left: 10px;
+    top: 45px;
+    left: 20px;
     z-index: 1;
   }
 
@@ -36,59 +39,130 @@
     margin-right: 5px;
     width: 10px;
   }
-  #TimelineData {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 700px;
-  overflow: auto;
 
+  #TimelineData,
+  #DOBData {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 700px;
+    overflow: auto;
+  }
+
+  #menu {
+    background: #fff;
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    right: 10px;
+    border-radius: 3px;
+    width: 120px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  #menu a {
+    font-size: 13px;
+    color: #404040;
+    display: block;
+    margin: 0;
+    padding: 0;
+    padding: 10px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: center;
+  }
+
+  #menu a:last-child {
+    border: none;
+  }
+
+  #menu a:hover {
+    background-color: #f8f8f8;
+    color: #404040;
+  }
+
+  #menu a.active {
+    background-color: #3887be;
+    color: #ffffff;
+  }
+
+  #menu a.active:hover {
+    background: #3074a4;
   }
 </style>
 {% endblock%}
 
 {% block body %}
-<div class = container-fluid>
-  <div class = "row">
-    <div class = "col-12 col-md-6">
-      <section class = "widget">
-        <div id="map"></div>
-        <div id="age-legend" class="legend">
-            <h5>Land Use</h5>
-            <div><span style = "background: hsla(65, 82%, 85%, 0.8)"></span>Residential</div>
-            <div><span style = "background: hsla(360, 70%, 85%, 0.8)"></span>Commercial</div>
-            <div><span style = "background: hsla(239, 82%, 81%, 0.8)"></span>Others</div>
-            <div><span style = "background: hsla(118, 100%, 80%, 0.8)"></span>Open Space /Parking</div>
-            <div><span style = "background: hsla(180, 100%, 54%, 0.8)"></span>Vacant Land</div>
-            <div><span style = "background: hsla(0, 0%, 95%, 0.8)"></span>No Data</div>
-          </div>
-      </section>
-    </div>
-    <div class = "col-12 col-md-6">
+<div class=container-fluid>
+  <div class="row">
+    <div class="col-12 col-md-6">
       <section>
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Info</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">ACRIS</a>
-            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">DOB</a>
+            <a class="nav-item nav-link active" id="nav-map-tab" data-toggle="tab" href="#nav-map" role="tab"
+              aria-controls="nav-map" aria-selected="true">Map</a>
+            <a class="nav-item nav-link" id="nav-filtermap-tab" data-toggle="tab" href="#nav-filtermap" role="tab"
+              aria-controls="nav-filtermap" aria-selected="false">Filter Map</a>
+          </div>
+        </nav>
+      </section>
+      <div class="tab-pane fade show active" id="nav-map" role="tabpanel" aria-labelledby="nav-map-tab">
+        <div id="map"></div>
+        <nav id="menu"></nav>
+        <div id="age-legend" class="legend">
+          <h5>Land Use</h5>
+          <div><span style="background: hsla(65, 82%, 85%, 0.8)"></span>Residential</div>
+          <div><span style="background: hsla(360, 70%, 85%, 0.8)"></span>Commercial</div>
+          <div><span style="background: hsla(239, 82%, 81%, 0.8)"></span>Others</div>
+          <div><span style="background: hsla(118, 100%, 80%, 0.8)"></span>Open Space /Parking</div>
+          <div><span style="background: hsla(180, 100%, 54%, 0.8)"></span>Vacant Land</div>
+          <div><span style="background: hsla(0, 0%, 95%, 0.8)"></span>No Data</div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="nav-filtermap" role="tabpanel" aria-labelledby="nav-filtermap-tab">
+        <div id="map"></div>
+        
+        <div id="zfa-legend" class="legend">
+          <h5>Price/ZFA</h5>
+          <div><span style="background: rgba(26,152,80,0.8)"></span></div>
+          <div><span style="background: rgba(145,207,96,0.8)"></span></div>
+          <div><span style="background: rgba(217,239,139,0.8)"></span></div>
+          <div><span style="background: rgba(255,255,191,0.8)"></span></div>
+          <div><span style="background: rgba(254,224,139,0.8)"></span></div>
+          <div><span style="background: rgba(252,141,89,0.8)"></span></div>
+          <div><span style="background: rgba(215,48,39,0.8)"></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <section>
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+              aria-controls="nav-home" aria-selected="true">Info</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+              aria-controls="nav-profile" aria-selected="false">ACRIS</a>
+            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+              aria-controls="nav-contact" aria-selected="false">DOB</a>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
           <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <div class = "content">
-              <div id = infoData></div>
+            <div class="content">
+              <div id=infoData></div>
             </div>
           </div>
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <div class = "content">
-              <pre id = "TimelineData"></pre>
+            <div class="content">
+              <pre id="TimelineData"></pre>
               <!-- <pre id = "TimelineTable"></pre> -->
             </div>
           </div>
           <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-            <div class = "content">
-              <pre id = "DOBData"></pre>
+            <div class="content">
+              <pre id="DOBData"></pre>
               <!-- <pre id = "TimelineTable"></pre> -->
             </div>
           </div>

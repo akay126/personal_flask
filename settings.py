@@ -1,8 +1,0 @@
-MAPBOX_ACCESS_KEY = 'pk.eyJ1IjoiYmVybmNvb2wiLCJhIjoiY2oyMzh1emZtMDB0MjM3cWltZGx6cmk0ciJ9.Q6kd7Y7rxkX43cWlZlB2bQ'
-# MYSQL_HOST = 'localhost'
-# MYSQL_USER = 'root'
-# MYSQL_PASSWORD = 'begu123'
-# MYSQL_DB = 'xstorm'
-# MYSQL_CURSORCLASS = 'DictCursor'
-# SQLALCHEMY_DATABASE_URI = 'mysql://root:begu123@localhost/xstrom'
-SQLALCHEMY_DATABASE_URI = 'sqlite:///xstorm.db'
