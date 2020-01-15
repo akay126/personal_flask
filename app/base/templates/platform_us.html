@@ -20,12 +20,11 @@
     background-color: rgba(104, 104, 104, 0.85);
     color: azure;
     border-radius: 3px;
-    top: 10px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     font: 12px/20px 'Poppins', 'sans-serif';
     padding: 10px;
     position: absolute;
-    top: 45px;
+    top: 10px;
     left: 20px;
     z-index: 1;
   }
@@ -55,7 +54,7 @@
     position: absolute;
     z-index: 1;
     top: 10px;
-    right: 10px;
+    left: 190px;
     border-radius: 3px;
     width: 120px;
     border: 1px solid rgba(0, 0, 0, 0.4);
@@ -98,19 +97,41 @@
 <div class=container-fluid>
   <div class="row">
     <div class="col-12 col-md-6">
-      <section>
+        <div id="map"></div>
+        <nav id="menu"></nav>
+        <div id="age-legend" class="legend">
+            <h5>Land Use</h5>
+            <div><span style="background: hsla(65, 82%, 85%, 0.8)"></span>Residential</div>
+            <div><span style="background: hsla(360, 70%, 85%, 0.8)"></span>Commercial</div>
+            <div><span style="background: hsla(239, 82%, 81%, 0.8)"></span>Others</div>
+            <div><span style="background: hsla(118, 100%, 80%, 0.8)"></span>Open Space /Parking</div>
+            <div><span style="background: hsla(180, 100%, 54%, 0.8)"></span>Vacant Land</div>
+            <div><span style="background: hsla(0, 0%, 95%, 0.8)"></span>No Data</div>
+          </div>
+          <!-- <div id="zfa-legend" class="legend">
+              <h5>Price/ZFA</h5>
+              <div><span style="background: rgba(26,152,80,0.8)"></span></div>
+              <div><span style="background: rgba(145,207,96,0.8)"></span></div>
+              <div><span style="background: rgba(217,239,139,0.8)"></span></div>
+              <div><span style="background: rgba(255,255,191,0.8)"></span></div>
+              <div><span style="background: rgba(254,224,139,0.8)"></span></div>
+              <div><span style="background: rgba(252,141,89,0.8)"></span></div>
+              <div><span style="background: rgba(215,48,39,0.8)"></span></div>
+            </div> -->
+      <!-- <section>
         <nav>
-          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <div class="nav nav-tabs" id="nav-tab-map" role="tablist">
             <a class="nav-item nav-link active" id="nav-map-tab" data-toggle="tab" href="#nav-map" role="tab"
               aria-controls="nav-map" aria-selected="true">Map</a>
             <a class="nav-item nav-link" id="nav-filtermap-tab" data-toggle="tab" href="#nav-filtermap" role="tab"
-              aria-controls="nav-filtermap" aria-selected="false">Filter Map</a>
+              aria-controls="nav-filtermap" aria-selected="false">Map Filters</a>
           </div>
         </nav>
+        <div class="tab-pane fade show active" id="nav-map" role="tabpanel" aria-labelledby="nav-map-tab">
+          <div id="map"></div>
+          <nav id="menu"></nav>
+        </div>
       </section>
-      <div class="tab-pane fade show active" id="nav-map" role="tabpanel" aria-labelledby="nav-map-tab">
-        <div id="map"></div>
-        <nav id="menu"></nav>
         <div id="age-legend" class="legend">
           <h5>Land Use</h5>
           <div><span style="background: hsla(65, 82%, 85%, 0.8)"></span>Residential</div>
@@ -120,10 +141,6 @@
           <div><span style="background: hsla(180, 100%, 54%, 0.8)"></span>Vacant Land</div>
           <div><span style="background: hsla(0, 0%, 95%, 0.8)"></span>No Data</div>
         </div>
-      </div>
-      <div class="tab-pane fade" id="nav-filtermap" role="tabpanel" aria-labelledby="nav-filtermap-tab">
-        <div id="map"></div>
-        
         <div id="zfa-legend" class="legend">
           <h5>Price/ZFA</h5>
           <div><span style="background: rgba(26,152,80,0.8)"></span></div>
@@ -134,7 +151,9 @@
           <div><span style="background: rgba(252,141,89,0.8)"></span></div>
           <div><span style="background: rgba(215,48,39,0.8)"></span></div>
         </div>
-      </div>
+      <div class="tab-pane fade" id="nav-filtermap" role="tabpanel" aria-labelledby="nav-filtermap-tab">Coming Soon
+      </div> -->
+
     </div>
     <div class="col-12 col-md-6">
       <section>
@@ -173,6 +192,15 @@
   </div>
 </div>
 
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
+<link
+rel="stylesheet"
+href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css"
+type="text/css"
+/>
+<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 
 <script type="text/javascript">
   var ACCESS_KEY = "{{ACCESS_KEY}}";
