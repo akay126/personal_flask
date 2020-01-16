@@ -38,12 +38,12 @@ function json2table(json, classes, cols) {
                 return doc_type_dict[string];
                 break;
             case 'job__':
-                return `<a href = "http://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=${string}"  target="_blank">${string}</a>`; 
+                return `<a href = "http://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=${string}"  target="_blank">${string}</a>`;
                 break;
             case 'document_id':
-                return `<a href = "https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${string}" target="_blank">${string}</a>`; 
+                return `<a href = "https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${string}" target="_blank">${string}</a>`;
                 break;
-                default:
+            default:
                 return string;
         };
     }
@@ -73,7 +73,7 @@ function json2table(json, classes, cols) {
 
 function CreateTableFromDICT(dict, ls) {
     if (ls.length == 0) {
-        table = '<table>' + '<tbody>'
+        table = '<table class = "table">' + '<tbody>'
         for (var key in dict) {
             table += '<tr>';
             table += '<td>' + key + '</td>';
@@ -82,7 +82,7 @@ function CreateTableFromDICT(dict, ls) {
         }
         table += '</tbody>' + '</table>'
     } else {
-        table = '<table>' + '<tbody>'
+        table = '<table class = "table">' + '<tbody>'
         for (var i in ls) {
             table += '<tr>';
             table += '<td>' + ls[i] + '</td>';
@@ -116,7 +116,7 @@ function CreateInfoTabData(dict) {
     k += '<p>' + Boro + ' (Borough ' + dict['BoroCode'] + ') | Block ' + dict['Block'] + ' | Lot ' + dict['Lot'] + '</p>'
     k += '<p>' + 'BBL: ' + dict['BBL'] + '</p>'
     k += '<h4>Building Information</h4>';
-    var list_info = ["OwnerName", "LandUse", "BldgClass", "YearBuilt"];
+    var list_info = ["OwnerName", "LandUse", "BldgClass", "YearBuilt","ZoneDist1","ZoneDist2"];
     k += CreateTableFromDICT(dict, list_info);
     k += '<h4>Development</h4>';
     var list_info = ["BuiltFAR", "ResidFAR", "CommFAR", "FacilFAR", "LotFront", "LotDepth", "LotArea"];
@@ -145,9 +145,9 @@ function CreateTimelineDataDoc(doc_id) {
         var party2_type = [];
         var party3_type = [];
         for (var i in party_json) {
-            if (party_json[i]["party_type"] == 1){
+            if (party_json[i]["party_type"] == 1) {
                 json[0]['party1_type'] = party_json[i]["name"];
-            } else if (party_json[i]["party_type"] == 2){
+            } else if (party_json[i]["party_type"] == 2) {
                 json[0]['party2_type'] = party_json[i]["name"];
             } else {
                 json[0]['party3_type'] = party_json[i]["name"];
@@ -171,7 +171,7 @@ function CreateTimelineARCIS(boro, block, lot) {
             json[i] = Object.assign({}, json[i], doc_data);
         }
         var json = json.sort(sortByProperty('recorded_datetime'));
-        var cols = ['document_id', 'recorded_datetime', 'doc_type', 'document_amt','party1_type','party2_type']
+        var cols = ['document_id', 'recorded_datetime', 'doc_type', 'document_amt', 'party1_type', 'party2_type']
         document.getElementById('TimelineData').innerHTML = json2table(json, 'table', cols);
         // document.getElementById('TimelineData').innerHTML = JSON.stringify(json,null,2);
     }
@@ -207,8 +207,8 @@ function CreateTimelineDataDOB(boro, block, lot) {
         var res = request.responseText;
         var json = JSON.parse(res);
         var json = json.sort(sortByProperty('filing_date'));
-        var cols = ['job__','fully_permitted','job_type','job_status_descrp','other_description','initial_cost'];
-        document.getElementById('DOBData').innerHTML = json2table(json,'table',cols);
+        var cols = ['job__', 'fully_permitted', 'job_type', 'job_status_descrp', 'other_description', 'initial_cost'];
+        document.getElementById('DOBData').innerHTML = json2table(json, 'table', cols);
         // document.getElementById('DOBData').innerHTML = JSON.stringify(json, null, 2);
     }
     return json
@@ -233,10 +233,10 @@ var map = new mapboxgl.Map({
 
 map.addControl(
     new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    mapboxgl: mapboxgl
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
     })
-    );
+);
 map.addControl(new mapboxgl.NavigationControl());
 // map.addControl(new mapboxgl.FullscreenControl());
 // Add geolocate control to the map.
@@ -248,11 +248,29 @@ map.addControl(
         trackUserLocation: true
     })
 );
-var hoveredStateId = null;
+
 map.on("load", function () {
     map.addSource('pluto', {
         type: 'vector',
         url: 'mapbox://berncool.8v2yi6o3'
+    });
+    map.addSource('ozone', {
+        type: 'vector',
+        url: 'mapbox://berncool.6fpvh816'
+    });
+
+    map.addLayer({
+        'id': 'ozone-borders',
+        'type': 'line',
+        'source': 'ozone',
+        'source-layer': 'OZone-dralst',
+        'layout': {},
+        'paint': {
+            'line-color': "red",
+            'line-width': 2,
+            "line-dasharray": [3, 4],
+            
+        },
     });
     map.addLayer({
         'id': 'pluto-fills',
@@ -266,7 +284,9 @@ map.on("load", function () {
                 ["get", "LandUse"],
                 ["01", "02", "03"],
                 "hsla(65, 82%, 85%, 0.3)",
-                ["04", "05"],
+                ["04"],
+                "hsla(29, 85%, 65%, 0.3)",
+                ["05"],
                 "hsla(360, 70%, 85%, 0.3)",
                 ["07", "06", "08"],
                 "hsla(239, 82%, 81%, 0.3)",
@@ -299,11 +319,42 @@ map.on("load", function () {
             ]
         },
     });
+    var toggleableLayerIds = ['pluto-fills', 'price_zfa', 'ozone-borders'];
+
+    for (var i = 0; i < toggleableLayerIds.length; i++) {
+        var id = toggleableLayerIds[i];
+
+        var link = document.createElement('a');
+        link.href = '#';
+        link.className = 'active';
+        link.textContent = id;
+
+        link.onclick = function (e) {
+            var clickedLayer = this.textContent;
+            e.preventDefault();
+            e.stopPropagation();
+
+            var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+            if (visibility === 'visible') {
+                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                this.className = '';
+            } else {
+                this.className = 'active';
+                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+            }
+        };
+
+        var layers = document.getElementById('menu');
+        layers.appendChild(link);
+    }
+
 
 
 });
 
-map.on('click', function (e) {
+var hoveredStateId = null;
+map.on('click', 'pluto-fills', function (e) {
     var features = map.queryRenderedFeatures(e.point);
 
     // Limit the number of properties we're displaying for
@@ -342,11 +393,11 @@ map.on('click', function (e) {
     // );
 });
 
-map.on('mousemove', 'pluto-fills', function (e) {
+map.on('mousemove','pluto-fills', function (e) {
     if (e.features.length > 0) {
         if (hoveredStateId) {
             map.setFeatureState(
-                { source: 'pluto', id: hoveredStateId, sourceLayer: 'pluto_19-2mq30a' },
+                { source: 'pluto', id: hoveredStateId, sourceLayer: 'pluto_19-2mq30a'},
                 { hover: false }
             );
         }
@@ -358,9 +409,7 @@ map.on('mousemove', 'pluto-fills', function (e) {
     }
 });
 
-// When the mouse leaves the state-fill layer, update the feature state of the
-// previously hovered feature.
-map.on('mouseleave', 'pluto-fills', function () {
+map.on('mouseleave', 'pluto-fills',function () {
     if (hoveredStateId) {
         map.setFeatureState(
             { source: 'pluto', id: hoveredStateId, sourceLayer: 'pluto_19-2mq30a' },
@@ -371,35 +420,3 @@ map.on('mouseleave', 'pluto-fills', function () {
 });
 
 
-
-
-
-var toggleableLayerIds = ['pluto-fills', 'price_zfa'];
- 
-for (var i = 0; i < toggleableLayerIds.length; i++) {
-var id = toggleableLayerIds[i];
- 
-var link = document.createElement('a');
-link.href = '#';
-link.className = 'active';
-link.textContent = id;
- 
-link.onclick = function(e) {
-var clickedLayer = this.textContent;
-e.preventDefault();
-e.stopPropagation();
- 
-var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
- 
-if (visibility === 'visible') {
-map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-this.className = '';
-} else {
-this.className = 'active';
-map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-}
-};
- 
-var layers = document.getElementById('menu');
-layers.appendChild(link);
-}
