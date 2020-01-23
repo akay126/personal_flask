@@ -1,0 +1,51 @@
+<div class="filter-box">
+  <button class="btn col-md-12" type="button" data-toggle="collapse" data-target="#exposed-filters" aria-expanded="false"
+    aria-controls="exposed-filters">
+    Map Filters
+  </button>
+</div>
+
+<div class="collapse show" id="exposed-filters">
+  <section class = "filter-box" style="background-color: whitesmoke;">
+    <div class="filter-content">
+      
+      <div class="form-row">
+        <!-- <div class ="form-group col-md-5">
+          <label for="MinLotFrontage">Lot Frontage</label>
+          <input type = "text" placeholder="Min. Frontage" id = "MinLotFrontage">
+          - 
+          <input type = "text" placeholder="Max. Frontage" id = "MaxLotFrontage">
+        </div> -->
+        <div class="form-group">
+          <label for="LandUse">Land Use</label>
+          <select multiple  class="form-control" id="LandUse">
+            <option>Residential</option>
+            <option>Commerial</option>
+            <option>Fixed Use</option>
+            <option>Open Space/Parking</option>
+            <option>Vacant Land</option>
+            <option>Others</option>
+          </select>
+        </div>
+        <div class="col-auto my-1">  
+          <fieldset class = "form-group">
+            <div class="row">
+              <div class="form-check-inline" id = "filter">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="allcheck" value="all" checked>
+                  <label class="form-check-label" for="allcheck">All</label>
+                </div>
+                <div class="form-check">
+                	<input class="form-check-input" type="radio"  name="gridRadios"id="ozcheck" value="oz">
+                	<label class="form-check-label" for="ozcheck">Opportunity Zone</label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </section>
+  <output  for= "LandUse"></output>
+</div>
+

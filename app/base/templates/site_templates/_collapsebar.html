@@ -1,0 +1,79 @@
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  
+  
+  <ul class="list-group">
+
+    <li class = "list-item">
+      <label for = "filter">Zoning</label>
+      <fieldset class="form-group">
+        <div class="row">
+          <div class="form-check-inline" id="filter">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="gridRadios" id="allcheck" value="all" checked>
+              <label class="form-check-label" for="allcheck">All</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="gridRadios" id="ozcheck" value="oz">
+              <label class="form-check-label" for="ozcheck">Opportunity Zone</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      
+    </li>
+    <li class="list-item">
+      <label for = "yearbuilt">Years Built</label>
+      <span id = 'yearbuilt-f'></span id>
+      <div class="slidecontainer">
+        <input type="range" min="1900" max="2020" value="2000" step="1" class="slider" id="yearbuilt">
+      </div>
+    </li>
+    <li class="list-item">
+      <label for = "lotfront">Lot Frontage</label>
+      <span id = 'lotfront-f'></span id>
+      <div class="slidecontainer">
+        <input type="range" min="0" max="500" value="0" step="25" class="slider" id="lotfront">
+      </div>
+    </li>
+    <li class = "list-item">
+      <div class="row">
+      	<div class="form-check-inline">
+      	  <div class="form-check">
+      	    <div class="toggle">
+      	      <input type="checkbox" class="check" id ="resid" checked>
+      	      <b class="b switch"></b>
+      	      <b class="b track"></b>
+      	    </div>
+            <label for = "resid" style = "margin-left: 45px;">Residential</label>
+          </div>
+          <div class="form-check">
+      	    <div class="toggle">
+      	      <input type="checkbox" class="check" id ="resid"  checked>
+      	      <b class="b switch"></b>
+      	      <b class="b track"></b>
+      	    </div>
+            <label for = "resid" style = "margin-left: 45px;">Commercial</label>
+      	  </div>
+      	</div>
+      </div>
+      
+    </li>
+  </ul>
+
+</div>
+<script>
+  var years = document.getElementById('yearbuilt');
+  var y = document.getElementById('yearbuilt-f');
+  y.innerHTML = years.value;
+  years.oninput = function(){
+    y.innerHTML = this.value;
+  }
+  var lotfront = document.getElementById('lotfront');
+  var x = document.getElementById('lotfront-f');
+  x.innerHTML = lotfront.value;
+  lotfront.oninput = function(){
+    x.innerHTML = this.value;
+  }
+</script>
+
