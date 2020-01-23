@@ -229,7 +229,7 @@ footer a:hover {
   cursor: pointer;
   background-color: #111;
   color: white;
-  padding: 10px 15px;
+  padding: 10px 20px;
   border: none;
   position: absolute;
   z-index: 1;
@@ -242,9 +242,9 @@ footer a:hover {
 #menu {
   background: #fff;
   position: absolute;
-  z-index: 0;
+  z-index: 1;
   top: 10px;
-  left: 190px;
+  left: 170px;
   border-radius: 3px;
   width: 120px;
   border: 1px solid rgba(0, 0, 0, 0.4);

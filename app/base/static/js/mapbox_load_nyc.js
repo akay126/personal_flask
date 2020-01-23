@@ -494,8 +494,8 @@ map.on('click', 'pluto-fills', function (e) {
   var lot = Objdict['Lot'];
 
   CreateInfoTabData(Objdict);
-  // CreateTimelineARCIS(boro, block, lot);
-  // CreateTimelineDataDOB(boro, block, lot);
+  CreateTimelineARCIS(boro, block, lot);
+  CreateTimelineDataDOB(boro, block, lot);
 
 
   // CreateTableFromDICT(displayFeatures[0]['properties']);
