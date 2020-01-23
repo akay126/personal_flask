@@ -93,11 +93,80 @@ function CreateTableFromDICT(dict, ls) {
   }
   return table
 };
-function CreateDevBar(built_FAR,resid_FAR,comm_FAR,fac_FAR,){
-  var dev_per = Math.floor((dict['BuiltFAR']/Math.max(dict['ResidFAR'],dict['CommFAR'],dict['FacilFAR']))*100 );
-  k+= `<div class="progress"><div class="progress-bar" role="progressbar" style="width: ${dev_per}%;" aria-valuenow="${dev_per}" aria-valuemin="0" aria-valuemax="100">`;
-  k+= dev_per + '%';
-  k+= '</div></div>';
+
+function CreateDevBar(dict) {
+  var ls = ['ResArea', 'OfficeArea', 'RetailArea', 'GarageArea', 'StrgeArea', 'FactryArea', 'OtherArea'];
+  // var total_area = [dict['ResArea'], dict['OfficeArea'], dict['RetailArea'], dict['GarageArea'], dict['StrgeArea'], dict['FactryArea'], dict['OtherArea']].reduce((a, b) => a + b, 0);
+  var zfa_area = Math.floor(dict['LotArea'] * Math.max(dict['ResidFAR'],dict['CommFAR'],dict['FacilFAR']))
+  var k = '<div class="progress" style="height:30px;">'
+  var accum_per = 0;
+  for (var i in ls) {
+    var area = dict[ls[i]];
+    var area_percentage = Math.floor((area / zfa_area) * 100);
+    switch (i) {
+      case '0':
+        var name = 'Resid';
+        var color = 'bg-warning';
+        var color_1 = '';
+        break;
+      case '1':
+        var name = 'Office';
+        var color = 'bg-danger';
+        var color_1 = '';
+        break;
+      case '2':
+        var name = 'Retail';
+        var color = '';
+        var color_1 = 'Orange'
+        break;
+      case '3':
+        var name = 'Garage';
+        var color = 'bg-info';
+        var color_1 = '';
+        break;
+      case '4':
+        var name = 'Storage';
+        var color = '';
+        var color_1 = 'Aqua';
+        break;
+      case '5':
+        var name = 'Factory';
+        var color = 'bg-info';
+        var color_1 = '';
+        break;
+      case '6':
+        var name = 'Other';
+        var color = '';
+        var color_1 = '';
+        break;
+      default:
+        var name = 'Error'
+        var color = ''
+        var color_1 = '';
+    };
+    if (area > 0) {
+      k += `<div class="progress-bar ${color}" role="progressbar" style="width: ${area_percentage}%; background-color: ${color_1};" aria-valuenow="${area_percentage}" aria-valuemin="0" aria-valuemax="100">${name}: ${area_percentage}%</div>`
+      accum_per += area_percentage;
+    };
+  };
+
+  if (accum_per == 0 && dict['BldgArea'] > 0 ){
+    var bldg_area = Math.floor(dict['BldgArea']/dict['LotArea']*100);
+    var color = 'progress-bar-striped bg-success'
+    k += `<div class="progress-bar" role="progressbar" style="width: ${bldg_area}%;" aria-valuenow="${bldg_area}" aria-valuemin="0" aria-valuemax="100">Other: ${bldg_area}%</div>`
+    accum_per+= bldg_area
+  };
+  if (accum_per < 100 ){
+    var air_area = 100 -accum_per
+    var color = 'progress-bar-striped bg-success'
+    k += `<div class="progress-bar ${color}" role="progressbar" style="width: ${air_area}%;" aria-valuenow="${air_area}" aria-valuemin="0" aria-valuemax="100">AirRights: ${air_area}%</div>`
+  };
+  k += '</div>'
+  if (accum_per >100){
+
+    k+= `<div style= "font-size: 12px; color:red; padding-bottom: 10px;" >Overdeveloped: ${accum_per-100}%</div>`
+  }
+  return k;
 
 };
 function CreateInfoTabData(dict) {
@@ -117,7 +186,7 @@ function CreateInfoTabData(dict) {
     case 5:
       var Boro = 'Staten Island';
       break;
-  }
+  };
   var k = '<h2>' + dict['Address'] + ', ' + dict['ZipCode'] + '</h2>';
   // k += '<p id = "boro">' + dict['BoroCode'] + '</p>'
   // k += '<p id = "block">' + dict['Block'] + '</p>'
@@ -128,6 +197,8 @@ function CreateInfoTabData(dict) {
   var list_info = ["OwnerName", "LandUse", "BldgClass", "YearBuilt", "ZoneDist1", "ZoneDist2"];
   k += CreateTableFromDICT(dict, list_info);
   k += '<h4>Development</h4>';
+  // k+='<span>Building Potential</span>' ;
+  k+= CreateDevBar(dict);
   var list_info = ["BuiltFAR", "ResidFAR", "CommFAR", "FacilFAR", "LotFront", "LotDepth", "LotArea"];
   k += CreateTableFromDICT(dict, list_info);
   k += '<h4>Other</h4>';
@@ -165,7 +236,7 @@ function CreateTimelineDataDoc(doc_id) {
   };
   return json[0];
 };
-function CreateTimelineARCIS(boro,block,lot) {
+function CreateTimelineARCIS(boro, block, lot) {
   // var boro = document.getElementById('boro').textContent
   // var block = document.getElementById('block').textContent
   // var lot = document.getElementById('lot').textContent
@@ -311,24 +382,24 @@ map.on("load", function () {
 
   });
 
-// Filter section
-var filteryear = ['<', ['number', ['get', 'YearBuilt']], 2000];
-var filterlotfront = ['>', ['number', ['get', 'LotFront']], 0];
+  // Filter section
+  var filteryear = ['<', ['number', ['get', 'YearBuilt']], 2000];
+  var filterlotfront = ['>', ['number', ['get', 'LotFront']], 0];
 
 
-  document.getElementById('yearbuilt').addEventListener('input', function(e) {
+  document.getElementById('yearbuilt').addEventListener('input', function (e) {
     var year = parseInt(e.target.value);
     // update the map
     filteryear = ['<', ['number', ['get', 'YearBuilt']], year]
-    map.setFilter('pluto-fills', ['all', filteryear,filterlotfront]);
-    
+    map.setFilter('pluto-fills', ['all', filteryear, filterlotfront]);
+
   });
-  document.getElementById('lotfront').addEventListener('input', function(e) {
+  document.getElementById('lotfront').addEventListener('input', function (e) {
     var lotfront = parseInt(e.target.value);
     // update the map
     filterlotfront = ['>', ['number', ['get', 'LotFront']], lotfront]
-    map.setFilter('pluto-fills', ['all', filteryear,filterlotfront]);
-    
+    map.setFilter('pluto-fills', ['all', filteryear, filterlotfront]);
+
   });
   // document.getElementById('filter').addEventListener('change', function (e) {
   //   var land = e.target.value;
@@ -423,8 +494,8 @@ map.on('click', 'pluto-fills', function (e) {
   var lot = Objdict['Lot'];
 
   CreateInfoTabData(Objdict);
-  CreateTimelineARCIS(boro, block, lot);
-  CreateTimelineDataDOB(boro, block, lot);
+  // CreateTimelineARCIS(boro, block, lot);
+  // CreateTimelineDataDOB(boro, block, lot);
 
 
   // CreateTableFromDICT(displayFeatures[0]['properties']);
