@@ -146,6 +146,12 @@ footer a:hover {
   text-decoration: underline;
 }
 
+.table td{
+  padding: 0.25rem !important;
+  font-size: 0.80rem;
+}
+
+
 /* Style all font awesome icons */
 .fa {
   /* padding: 0px 5px; */

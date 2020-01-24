@@ -2,6 +2,10 @@
 {% block title %} Demo NYC {% endblock %}
 {% block head%}
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.css"
+  type="text/css" />
 <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.0/mapbox-gl.js"></script>
 <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.0/mapbox-gl.css" rel="stylesheet" />
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -48,8 +52,6 @@
     height: 700px;
     overflow: auto;
   }
-
-
 </style>
 {% endblock%}
 
@@ -92,7 +94,7 @@
             <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
               aria-controls="nav-home" aria-selected="true">Info</a>
             <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-              aria-controls="nav-profile" aria-selected="false" >ACRIS</a>
+              aria-controls="nav-profile" aria-selected="false">ACRIS</a>
             <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
               aria-controls="nav-contact" aria-selected="false">DOB</a>
           </div>

@@ -299,6 +299,9 @@ function CreateTimelineDataDOB(boro, block, lot) {
 };
 
 
+
+
+
 var bounds = [
   [-74.5000, 42.0000], // Southwest coordinates
   [-73.0000, 40.0000] // Northeast coordinates$
@@ -332,7 +335,25 @@ map.addControl(
   })
 );
 
+// Create a Draw control
+var draw = new MapboxDraw({
+  displayControlsDefault: false,
+  controls: {
+      polygon: true,
+      trash: true
+  }
+});
+// Add the Draw control to your map
+map.addControl(draw);
+
+// map.on('draw.create', updateArea);
+// map.on('draw.delete', updateArea);
+// map.on('draw.update', updateArea);
+
+
+
 map.on("load", function () {
+  
   map.addSource('ozone', {
     type: 'vector',
     url: 'mapbox://berncool.6fpvh816'
@@ -428,7 +449,7 @@ map.on("load", function () {
       'line-width': [
         'case',
         ['boolean', ['feature-state', 'hover'], false],
-        2,
+        3.5,
         0.25
       ]
     },
@@ -465,10 +486,13 @@ map.on("load", function () {
   }
 
 });
-
-var hoveredStateId = null;
+var popup = new mapboxgl.Popup({
+  closeButton: false,
+  closeOnClick: false
+  });
+var marker = new mapboxgl.Marker();
 map.on('click', 'pluto-fills', function (e) {
-  var features = map.queryRenderedFeatures(e.point);
+  var features = map.queryRenderedFeatures(e.point,{ layers: ['pluto-fills'] });
 
   // Limit the number of properties we're displaying for
   // legibility and performance
@@ -492,21 +516,32 @@ map.on('click', 'pluto-fills', function (e) {
   var boro = Objdict['BoroCode'];
   var block = Objdict['Block'];
   var lot = Objdict['Lot'];
+  var geometry =features[0].geometry;
+  draw.add({
+    id: 'unique-id',
+    type: 'Feature',
+    properties: {},
+    geometry: features[0].geometry
+  });
+
 
   CreateInfoTabData(Objdict);
-  CreateTimelineARCIS(boro, block, lot);
-  CreateTimelineDataDOB(boro, block, lot);
+  // CreateTimelineARCIS(boro, block, lot);
+  // CreateTimelineDataDOB(boro, block, lot);
+  hoveredStateId = e.features[0].id;
+  map.setFeatureState(
+    { source: 'pluto', id: hoveredStateId, sourceLayer: 'pluto_19-2mq30a' },
+    { hover: true }
+  );
+  marker
+  .setLngLat(e.lngLat)
+  .addTo(map);
 
 
-  // CreateTableFromDICT(displayFeatures[0]['properties']);
-  // document.getElementById('features').innerHTML = JSON.stringify(
-  //     displayFeatures,
-  //     null,
-  //     2
-  // );
 });
-
+var hoveredStateId = null;
 map.on('mousemove', 'pluto-fills', function (e) {
+  map.getCanvas().style.cursor = 'pointer';
   if (e.features.length > 0) {
     if (hoveredStateId) {
       map.setFeatureState(
@@ -519,7 +554,12 @@ map.on('mousemove', 'pluto-fills', function (e) {
       { source: 'pluto', id: hoveredStateId, sourceLayer: 'pluto_19-2mq30a' },
       { hover: true }
     );
+    popup
+      .setLngLat(e.lngLat)
+      .setHTML(e.features[0].properties.Address)
+      .addTo(map);
   }
+
 });
 
 map.on('mouseleave', 'pluto-fills', function () {
@@ -530,5 +570,6 @@ map.on('mouseleave', 'pluto-fills', function () {
     );
   }
   hoveredStateId = null;
+  popup.remove();
 });
 
