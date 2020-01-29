@@ -70,7 +70,6 @@ function json2table(json, classes, cols) {
     bodyRows +
     '</tbody></table>';
 };
-
 function CreateTableFromDICT(dict, ls) {
   if (ls.length == 0) {
     table = '<table class = "table">' + '<tbody>'
@@ -93,11 +92,10 @@ function CreateTableFromDICT(dict, ls) {
   }
   return table
 };
-
 function CreateDevBar(dict) {
   var ls = ['ResArea', 'OfficeArea', 'RetailArea', 'GarageArea', 'StrgeArea', 'FactryArea', 'OtherArea'];
   // var total_area = [dict['ResArea'], dict['OfficeArea'], dict['RetailArea'], dict['GarageArea'], dict['StrgeArea'], dict['FactryArea'], dict['OtherArea']].reduce((a, b) => a + b, 0);
-  var zfa_area = Math.floor(dict['LotArea'] * Math.max(dict['ResidFAR'],dict['CommFAR'],dict['FacilFAR']))
+  var zfa_area = Math.floor(dict['LotArea'] * Math.max(dict['ResidFAR'], dict['CommFAR'], dict['FacilFAR']))
   var k = '<div class="progress" style="height:30px;">'
   var accum_per = 0;
   for (var i in ls) {
@@ -150,21 +148,21 @@ function CreateDevBar(dict) {
     };
   };
 
-  if (accum_per == 0 && dict['BldgArea'] > 0 ){
-    var bldg_area = Math.floor(dict['BldgArea']/dict['LotArea']*100);
+  if (accum_per == 0 && dict['BldgArea'] > 0) {
+    var bldg_area = Math.floor(dict['BldgArea'] / dict['LotArea'] * 100);
     var color = 'progress-bar-striped bg-success'
     k += `<div class="progress-bar" role="progressbar" style="width: ${bldg_area}%;" aria-valuenow="${bldg_area}" aria-valuemin="0" aria-valuemax="100">Other: ${bldg_area}%</div>`
-    accum_per+= bldg_area
+    accum_per += bldg_area
   };
-  if (accum_per < 100 ){
-    var air_area = 100 -accum_per
+  if (accum_per < 100) {
+    var air_area = 100 - accum_per
     var color = 'progress-bar-striped bg-success'
     k += `<div class="progress-bar ${color}" role="progressbar" style="width: ${air_area}%;" aria-valuenow="${air_area}" aria-valuemin="0" aria-valuemax="100">AirRights: ${air_area}%</div>`
   };
   k += '</div>'
-  if (accum_per >100){
+  if (accum_per > 100) {
 
-    k+= `<div style= "font-size: 12px; color:red; padding-bottom: 10px;" >Overdeveloped: ${accum_per-100}%</div>`
+    k += `<div style= "font-size: 12px; color:red; padding-bottom: 10px;" >Overdeveloped: ${accum_per - 100}%</div>`
   }
   return k;
 
@@ -198,7 +196,7 @@ function CreateInfoTabData(dict) {
   k += CreateTableFromDICT(dict, list_info);
   k += '<h4>Development</h4>';
   // k+='<span>Building Potential</span>' ;
-  k+= CreateDevBar(dict);
+  k += CreateDevBar(dict);
   var list_info = ["BuiltFAR", "ResidFAR", "CommFAR", "FacilFAR", "LotFront", "LotDepth", "LotArea"];
   k += CreateTableFromDICT(dict, list_info);
   k += '<h4>Other</h4>';
@@ -298,10 +296,6 @@ function CreateTimelineDataDOB(boro, block, lot) {
 
 };
 
-
-
-
-
 var bounds = [
   [-74.5000, 42.0000], // Southwest coordinates
   [-73.0000, 40.0000] // Northeast coordinates$
@@ -323,7 +317,10 @@ map.addControl(
     mapboxgl: mapboxgl
   })
 );
-map.addControl(new mapboxgl.NavigationControl());
+map.addControl(
+  new mapboxgl.NavigationControl(),
+
+);
 // map.addControl(new mapboxgl.FullscreenControl());
 // Add geolocate control to the map.
 map.addControl(
@@ -339,8 +336,8 @@ map.addControl(
 var draw = new MapboxDraw({
   displayControlsDefault: false,
   controls: {
-      polygon: true,
-      trash: true
+    polygon: true,
+    trash: true
   }
 });
 // Add the Draw control to your map
@@ -353,7 +350,7 @@ map.addControl(draw);
 
 
 map.on("load", function () {
-  
+
   map.addSource('ozone', {
     type: 'vector',
     url: 'mapbox://berncool.6fpvh816'
@@ -373,13 +370,13 @@ map.on("load", function () {
   });
   map.addSource('pluto', {
     type: 'vector',
-    url: 'mapbox://berncool.8v2yi6o3'
+    url: 'mapbox://berncool.2pvwk2vt'
   });
   map.addLayer({
     'id': 'pluto-fills',
     'type': 'fill',
     'source': 'pluto',
-    'source-layer': 'pluto_19-2mq30a',
+    'source-layer': 'pluto_edit-62rnju',
     'layout': {},
     'paint': {
       'fill-color': [
@@ -403,41 +400,16 @@ map.on("load", function () {
 
   });
 
-  // Filter section
-  var filteryear = ['<', ['number', ['get', 'YearBuilt']], 2000];
-  var filterlotfront = ['>', ['number', ['get', 'LotFront']], 0];
-
-
-  document.getElementById('yearbuilt').addEventListener('input', function (e) {
-    var year = parseInt(e.target.value);
-    // update the map
-    filteryear = ['<', ['number', ['get', 'YearBuilt']], year]
-    map.setFilter('pluto-fills', ['all', filteryear, filterlotfront]);
-
+  map.addSource('deed', {
+    type: 'vector',
+    url: 'mapbox://berncool.cuevyg2i'
   });
-  document.getElementById('lotfront').addEventListener('input', function (e) {
-    var lotfront = parseInt(e.target.value);
-    // update the map
-    filterlotfront = ['>', ['number', ['get', 'LotFront']], lotfront]
-    map.setFilter('pluto-fills', ['all', filteryear, filterlotfront]);
-
-  });
-  // document.getElementById('filter').addEventListener('change', function (e) {
-  //   var land = e.target.value;
-  //   if (land === 'all') {
-  //     filterland = ['!=', ['string', ['get', 'Tract2010']], 'placeholder'];;
-  //   } else if (land === 'oz') {
-  //     filterland = ['in', 'Tract2010', '0062', '002601', '002201', '000202', '10405'];
-  //   }
-  //   map.setFilter('pluto-fills', ['all', filteryear,filterland]);
-  // });
-
 
   map.addLayer({
     'id': 'pluto-borders',
     'type': 'line',
     'source': 'pluto',
-    'source-layer': 'pluto_19-2mq30a',
+    'source-layer': 'pluto_edit-62rnju',
     'layout': {},
     'paint': {
       'line-color': [
@@ -455,7 +427,41 @@ map.on("load", function () {
     },
   });
 
-  var toggleableLayerIds = ['pluto-fills', 'price_zfa', 'ozone-borders'];
+  // Filter section
+  var filteryear = ['<', ['number', ['get', 'YearBuilt']], 2020];
+  var filterlotfront = ['>', ['number', ['get', 'LotFront']], 0];
+  var filterland = ['!=', ['number', ['get', 'OZone']],2]
+
+  document.getElementById('yearbuilt').addEventListener('input', function (e) {
+    var year = parseInt(e.target.value);
+    // update the map
+    filteryear = ['<', ['number', ['get', 'YearBuilt']], year]
+    map.setFilter('pluto-fills', ['all', filteryear, filterlotfront,filterland]);
+  });
+  document.getElementById('lotfront').addEventListener('input', function (e) {
+    var lotfront = parseInt(e.target.value);
+    // update the mapS
+    filterlotfront = ['>', ['number', ['get', 'LotFront']], lotfront]
+    map.setFilter('pluto-fills', ['all', filteryear, filterlotfront,filterland]);
+  });
+  document.getElementById('filter').addEventListener('change', function (e) {
+    var land = e.target.value;
+    if (land == 'all') {
+      filterland = ['!=', ['number', ['get', 'OZone']], parseInt('2')];;
+    } else if (land == 'oz') {
+      filterland = ['==', ['number', ['get', 'OZone']], parseInt('1')];
+    }
+    map.setFilter('pluto-fills', ['all', filteryear,filterlotfront,filterland]);
+  });
+  document.getElementById('height').addEventListener('input', function (e) {
+    var height = parseInt(e.target.value);
+    map.setPaintProperty('unique-id', 'fill-extrusion-height', height);
+  });
+  
+
+
+
+  var toggleableLayerIds = ['pluto-fills', 'price_zfa', 'deed-point', 'pluto-far','ozone-borders'];
 
   for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
@@ -478,6 +484,30 @@ map.on("load", function () {
       } else {
         this.className = 'active';
         map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        switch (clickedLayer) {
+          case 'pluto-fills':
+            document.getElementById('legend').innerHTML = '<h5>Land Use</h5>' +
+              '<div><span style="background: hsla(65, 82%, 85%, 0.8)"></span>Residential</div>' +
+              '<div><span style="background: hsla(360, 70%, 85%, 0.8)"></span>Commercial</div>' +
+              '<div><span style="background: hsla(29, 85%, 65%, 0.3)"></span>Fixed Use</div>' +
+              '<div><span style="background: hsla(118, 100%, 80%, 0.8)"></span>Open Space/Parking</div>' +
+              '<div><span style="background: hsla(180, 100%, 54%, 0.8)"></span>Vacant Land</div>' +
+              '<div><span style="background: hsla(239, 82%, 81%, 0.8)"></span>Others</div>'
+            break;
+          case 'price_zfa':
+            document.getElementById('legend').innerHTML = '<h5>Price/ZFA</h5>' +
+              '<div><span style="background: rgba(26,152,80,0.8)"></span>$600/ft</div>' +
+              '<div><span style="background: rgba(145,207,96,0.8)"></span>$700/ft</div>' +
+              '<div><span style="background: rgba(217,239,139,0.8)"></span>$800/ft</div>' +
+              '<div><span style="background: rgba(255,255,191,0.8)"></span>$900/ft</div>' +
+              '<div><span style="background: rgba(254,224,139,0.8)"></span>$1,000/ft</div>' +
+              '<div><span style="background: rgba(252,141,89,0.8)"></span>$1,200/ft</div>' +
+              '<div><span style="background: rgba(215,48,39,0.8)"></span>$3,000/ft</div>'
+            break;
+            case 'pluto-far':
+
+
+        };
       }
     };
 
@@ -486,13 +516,15 @@ map.on("load", function () {
   }
 
 });
+
 var popup = new mapboxgl.Popup({
   closeButton: false,
   closeOnClick: false
-  });
+});
+
 var marker = new mapboxgl.Marker();
 map.on('click', 'pluto-fills', function (e) {
-  var features = map.queryRenderedFeatures(e.point,{ layers: ['pluto-fills'] });
+  var features = map.queryRenderedFeatures(e.point, { layers: ['pluto-fills'] });
 
   // Limit the number of properties we're displaying for
   // legibility and performance
@@ -516,26 +548,38 @@ map.on('click', 'pluto-fills', function (e) {
   var boro = Objdict['BoroCode'];
   var block = Objdict['Block'];
   var lot = Objdict['Lot'];
-  var geometry =features[0].geometry;
+  var geometry = features[0].geometry;
   draw.add({
     id: 'unique-id',
     type: 'Feature',
     properties: {},
     geometry: features[0].geometry
   });
+  map.addLayer({
+    'id': 'unique-id',
+    'source': 'mapbox-gl-draw-cold',
+    'type': 'fill-extrusion',
+    'paint': {
+      'fill-extrusion-height': 100,
+      'fill-extrusion-color': '#aaa',
+    }
+  });
 
 
   CreateInfoTabData(Objdict);
-  // CreateTimelineARCIS(boro, block, lot);
-  // CreateTimelineDataDOB(boro, block, lot);
+  CreateTimelineARCIS(boro, block, lot);
+  CreateTimelineDataDOB(boro, block, lot);
+
+
+
   hoveredStateId = e.features[0].id;
   map.setFeatureState(
-    { source: 'pluto', id: hoveredStateId, sourceLayer: 'pluto_19-2mq30a' },
+    { source: 'pluto', id: hoveredStateId, sourceLayer: 'pluto_edit-62rnju' },
     { hover: true }
   );
   marker
-  .setLngLat(e.lngLat)
-  .addTo(map);
+    .setLngLat(e.lngLat)
+    .addTo(map);
 
 
 });
@@ -545,13 +589,13 @@ map.on('mousemove', 'pluto-fills', function (e) {
   if (e.features.length > 0) {
     if (hoveredStateId) {
       map.setFeatureState(
-        { source: 'pluto', id: hoveredStateId, sourceLayer: 'pluto_19-2mq30a' },
+        { source: 'pluto', id: hoveredStateId, sourceLayer: 'pluto_edit-62rnju' },
         { hover: false }
       );
     }
     hoveredStateId = e.features[0].id;
     map.setFeatureState(
-      { source: 'pluto', id: hoveredStateId, sourceLayer: 'pluto_19-2mq30a' },
+      { source: 'pluto', id: hoveredStateId, sourceLayer: 'pluto_edit-62rnju' },
       { hover: true }
     );
     popup
@@ -559,13 +603,37 @@ map.on('mousemove', 'pluto-fills', function (e) {
       .setHTML(e.features[0].properties.Address)
       .addTo(map);
   }
-
 });
+map.on('mousemove', 'price_zfa', function (e) {
+  map.getCanvas().style.cursor = 'pointer';
+  if (e.features.length > 0) {
+    var price = '$' + parseInt(e.features[0].properties.PRICE_ZFA).toLocaleString() + '/ft';
+    popup
+      .setLngLat(e.lngLat)
+      .setHTML(price)
+      .addTo(map);
+  }
+});
+map.on('click', 'deed-point', function (e) {
+  map.getCanvas().style.cursor = 'pointer';
+  if (e.features.length > 0) {
+    var doc = e.features[0].properties.DOCUMENT_I
+    var doc_date = 'Document Date: ' + e.features[0].properties.DOC_DATE
+    var price = 'Document amount: $' + parseInt(e.features[0].properties.DOC_AMOUNT).toLocaleString();
+    var p_zfa = 'Price/ZFA:  $' + parseInt(e.features[0].properties.PRICE_ZFA).toLocaleString() + '/ft';
+    var htmlcontent = `<div>Document ID :<a href = "https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${doc}" target = "_blank">${doc}</a><div>${doc_date}</div></div><div>${price}</div><div>${p_zfa}</div>`;
+    popup
+      .setLngLat(e.lngLat)
+      .setHTML(htmlcontent)
+      .addTo(map);
+  }
+});
+
 
 map.on('mouseleave', 'pluto-fills', function () {
   if (hoveredStateId) {
     map.setFeatureState(
-      { source: 'pluto', id: hoveredStateId, sourceLayer: 'pluto_19-2mq30a' },
+      { source: 'pluto', id: hoveredStateId, sourceLayer: 'pluto_edit-62rnju' },
       { hover: false }
     );
   }
@@ -573,3 +641,6 @@ map.on('mouseleave', 'pluto-fills', function () {
   popup.remove();
 });
 
+map.on('mouseleave', 'price_zfa', function () {
+  popup.remove();
+});

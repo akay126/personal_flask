@@ -62,28 +62,18 @@
       {% include "site_templates/_collapsebar.html"%}
 
       <div id="map">
-        <button class="openbtn" onclick="openNav()">☰ Map Filter</button>
+        <button id="map-filter" class="openbtn" onclick="openNav(this.id)">☰ Map Filter</button>
+        <button id="envelope" class="openbtn" onclick="openNav(this.id)">☰ Envelope</button>
         <nav id="menu"></nav>
-        <!-- <nav id="menu"></nav> -->
-        <div id="age-legend" class="legend">
-          <h5>Land Use</h5>
-          <div><span style="background: hsla(65, 82%, 85%, 0.8)"></span>Residential</div>
-          <div><span style="background: hsla(360, 70%, 85%, 0.8)"></span>Commercial</div>
-          <div><span style="background: hsla(29, 85%, 65%, 0.3)"></span>Fixed Use</div>
-          <div><span style="background: hsla(118, 100%, 80%, 0.8)"></span>Open Space/Parking</div>
-          <div><span style="background: hsla(180, 100%, 54%, 0.8)"></span>Vacant Land</div>
-          <div><span style="background: hsla(239, 82%, 81%, 0.8)"></span>Others</div>
+        <div id="legend" class="legend">
+            <h5>Land Use</h5>
+            <div><span style="background: hsla(65, 82%, 85%, 0.8)"></span>Residential</div>
+            <div><span style="background: hsla(360, 70%, 85%, 0.8)"></span>Commercial</div>
+            <div><span style="background: hsla(29, 85%, 65%, 0.3)"></span>Fixed Use</div>
+            <div><span style="background: hsla(118, 100%, 80%, 0.8)"></span>Open Space/Parking</div>
+            <div><span style="background: hsla(180, 100%, 54%, 0.8)"></span>Vacant Land</div>
+            <div><span style="background: hsla(239, 82%, 81%, 0.8)"></span>Others</div>
         </div>
-        <!-- <div id="zfa-legend" class="legend">
-                <h5>Price/ZFA</h5>
-                <div><span style="background: rgba(26,152,80,0.8)"></span></div>
-                <div><span style="background: rgba(145,207,96,0.8)"></span></div>
-                <div><span style="background: rgba(217,239,139,0.8)"></span></div>
-                <div><span style="background: rgba(255,255,191,0.8)"></span></div>
-                <div><span style="background: rgba(254,224,139,0.8)"></span></div>
-                <div><span style="background: rgba(252,141,89,0.8)"></span></div>
-                <div><span style="background: rgba(215,48,39,0.8)"></span></div>
-              </div> -->
       </div>
 
     </div>
@@ -91,28 +81,28 @@
       <section>
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-              aria-controls="nav-home" aria-selected="true">Info</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-              aria-controls="nav-profile" aria-selected="false">ACRIS</a>
-            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
-              aria-controls="nav-contact" aria-selected="false">DOB</a>
+            <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab"
+              aria-controls="nav-info" aria-selected="true">Info</a>
+            <a class="nav-item nav-link" id="nav-acris-tab" data-toggle="tab" href="#nav-acris" role="tab"
+              aria-controls="nav-acris" aria-selected="false">ACRIS</a>
+            <a class="nav-item nav-link" id="nav-dob-tab" data-toggle="tab" href="#nav-dob" role="tab"
+              aria-controls="nav-dob" aria-selected="false">DOB</a>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
             <div class="content">
-              <div id=infoData></div>
+              <div id=infoData>Please click on a property to display info</div>
             </div>
           </div>
-          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class="tab-pane fade" id="nav-acris" role="tabpanel" aria-labelledby="nav-acris-tab">
             <div class="content">
-              <div id="TimelineData"></div>
+              <div id="TimelineData">Please click on a property to display info</div>
             </div>
           </div>
-          <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+          <div class="tab-pane fade" id="nav-dob" role="tabpanel" aria-labelledby="nav-dob-tab">
             <div class="content">
-              <pre id="DOBData"></pre>
+              <div id="DOBData">Please click on a property to display info</div>
             </div>
           </div>
         </div>
@@ -130,13 +120,16 @@
 <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 
 <script type="text/javascript">
-  function openNav() {
-    document.getElementById("mySidebar").style.width = "300px";
+  function openNav(id) {
+    var id = id + '-content'
+    document.getElementById(id).style.width = "300px";
     document.getElementById("map").style.marginLeft = "300px";
   }
 
   function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("map-filter-content").style.width = "0";
+    document.getElementById("envelope-content").style.width = "0";
+
     document.getElementById("map").style.marginLeft = "0";
   }
   var ACCESS_KEY = "{{ACCESS_KEY}}";

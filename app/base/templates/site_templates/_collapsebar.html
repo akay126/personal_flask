@@ -1,11 +1,8 @@
-<div id="mySidebar" class="sidebar">
+<div id="map-filter-content" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-  
-  
   <ul class="list-group">
-
-    <li class = "list-item">
-      <label for = "filter">Zoning</label>
+    <li class="list-item">
+      <label for="filter">Zoning</label>
       <fieldset class="form-group">
         <div class="row">
           <div class="form-check-inline" id="filter">
@@ -20,60 +17,101 @@
           </div>
         </div>
       </fieldset>
-      
+
     </li>
-    <li class="list-item">
-      <label for = "yearbuilt">Years Built</label>
-      <span id = 'yearbuilt-f'></span id>
-      <div class="slidecontainer">
-        <input type="range" min="1900" max="2020" value="2000" step="1" class="slider" id="yearbuilt">
-      </div>
-    </li>
-    <li class="list-item">
-      <label for = "lotfront">Lot Frontage</label>
-      <span id = 'lotfront-f'></span id>
-      <div class="slidecontainer">
-        <input type="range" min="0" max="500" value="0" step="25" class="slider" id="lotfront">
-      </div>
-    </li>
-    <li class = "list-item">
+    <li class="list-item" id = "toggle-group">
       <div class="row">
-      	<div class="form-check-inline">
-      	  <div class="form-check">
-      	    <div class="toggle">
-      	      <input type="checkbox" class="check" id ="resid" checked>
-      	      <b class="b switch"></b>
-      	      <b class="b track"></b>
-      	    </div>
-            <label for = "resid" style = "margin-left: 45px;">Residential</label>
+        <div class="form-check-inline">
+          <div class="form-check">
+            <div class="toggle">
+              <input type="checkbox" class="check" id="resid" checked>
+              <b class="b switch"></b>
+              <b class="b track"></b>
+            </div>
+            <label for="resid" style="margin-left: 45px;">Residential</label>
           </div>
           <div class="form-check">
-      	    <div class="toggle">
-      	      <input type="checkbox" class="check" id ="resid"  checked>
-      	      <b class="b switch"></b>
-      	      <b class="b track"></b>
-      	    </div>
-            <label for = "resid" style = "margin-left: 45px;">Commercial</label>
-      	  </div>
-      	</div>
+            <div class="toggle">
+              <input type="checkbox" class="check" id="resid" checked>
+              <b class="b switch"></b>
+              <b class="b track"></b>
+            </div>
+            <label for="resid" style="margin-left: 45px;">Commercial</label>
+          </div>
+        </div>
       </div>
-      
+
+    </li>
+    <li class="list-item" id = "toggle-group">
+      <div class="row">
+        <div class="form-check-inline">
+          <div class="form-check">
+            <div class="toggle">
+              <input type="checkbox" class="check" id="fix-use" checked>
+              <b class="b switch"></b>
+              <b class="b track"></b>
+            </div>
+            <label for="fix-use" style="margin-left: 45px;">Fixed Use</label>
+          </div>
+          <div class="form-check">
+            <div class="toggle">
+              <input type="checkbox" class="check" id="open-land" checked>
+              <b class="b switch"></b>
+              <b class="b track"></b>
+            </div>
+            <label for="open-land" style="margin-left: 45px;">Open Space/Parking</label>
+          </div>
+        </div>
+      </div>
+
+    </li>
+    <li class="list-item">
+      <label for="yearbuilt">Years Built</label>
+      <span id='yearbuilt-f'>2020</span>
+      <div class="slidecontainer">
+        <input type="range" min="1900" max="2040" value="2020" step="1" class="slider" id="yearbuilt"
+          onchange=updateText(this.id,this.value)>
+      </div>
+    </li>
+    <li class="list-item">
+      <label for="lotfront">Lot Frontage</label>
+      <span id='lotfront-f'>0</span>
+      <div class="slidecontainer">
+        <input type="range" min="0" max="500" value="0" step="25" class="slider" id="lotfront"
+          onchange=updateText(this.id,this.value)>
+      </div>
     </li>
   </ul>
-
 </div>
+
+<div id="envelope-content" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <ul class="list-group">
+    <li class="list-item">
+      <label for="height">Propose Height</label>
+      <span id='height-f'>20</span>
+      <div class="slidecontainer">
+        <input type="range" min="0" max="500" value="200" step="25" class="slider" id="height"
+          onchange=updateText(this.id,this.value)>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+
+
+
+
+
 <script>
-  var years = document.getElementById('yearbuilt');
-  var y = document.getElementById('yearbuilt-f');
-  y.innerHTML = years.value;
-  years.oninput = function(){
-    y.innerHTML = this.value;
-  }
-  var lotfront = document.getElementById('lotfront');
-  var x = document.getElementById('lotfront-f');
-  x.innerHTML = lotfront.value;
-  lotfront.oninput = function(){
-    x.innerHTML = this.value;
+  function updateText(id, val) {
+    var id_value = document.getElementById(id);
+    var id_text = id + '-f';
+    document.getElementById(id_text).innerHTML = val;
+    document.getElementById(id).oninput = function () {
+      document.getElementById(id_text).innerHTML = this.value;
+    };
+
   }
 </script>
-
