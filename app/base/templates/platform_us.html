@@ -25,7 +25,7 @@
     color: azure;
     border-radius: 3px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    font: 12px/20px 'Poppins', 'sans-serif';
+    /* font: 12px/20px 'Poppins', 'sans-serif'; */
     padding: 10px;
     position: absolute;
     top: 50px;
@@ -64,7 +64,6 @@
       <div id="map">
         <button id="map-filter" class="openbtn" onclick="openNav(this.id)">☰ Map Layers</button>
         <button id="envelope" class="openbtn" onclick="openNav(this.id)">☰ Envelope Analysis</button>
-        <nav id="menu"></nav>
         <div id="legend" class="legend">
             <h5>Land Use</h5>
             <div><span style="background: hsla(65, 82%, 85%, 0.8)"></span>Residential</div>
@@ -84,9 +83,9 @@
             <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab"
               aria-controls="nav-info" aria-selected="true">Info</a>
             <a class="nav-item nav-link" id="nav-acris-tab" data-toggle="tab" href="#nav-acris" role="tab"
-              aria-controls="nav-acris" aria-selected="false">ACRIS</a>
+              aria-controls="nav-acris" aria-selected="false">Mortgage</a>
             <a class="nav-item nav-link" id="nav-dob-tab" data-toggle="tab" href="#nav-dob" role="tab"
-              aria-controls="nav-dob" aria-selected="false">DOB</a>
+              aria-controls="nav-dob" aria-selected="false">Building Permits</a>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">

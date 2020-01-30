@@ -83,13 +83,24 @@ function CreateTableFromDICT(dict, ls) {
   } else {
     table = '<table class = "table">' + '<tbody>'
     for (var i in ls) {
-      if (dict[ls[i]] !== undefined) {
+      var dict_data = dict[ls[i]]
+      if (dict_data !== undefined) {
+        switch (ls[i]) {
+          case 'LandUse':
+            var landuse_dict = { '01': '1-2 Family', '02': 'Multi-Family Walk-Up', '03': 'Multi-Family Elevator', '04': 'Mixed Resid. & Comm.', '05': 'Comm./Office', '06': 'Industrial/Manufacturing', '07': 'Transportation/Utility', '08': 'Public Facilities/Instiutions', '09': 'Open Space/Outdoor Recreation', '10': 'Parking Facilities', '11': 'Vacant Land' };
+            var dict_data = landuse_dict[dict_data];
+            break;
+          case 'OwnerType':
+            var otype_dict = {'C': 'City Ownership', 'M':'Mixed City & Private Ownership' , 'O': 'Others', 'P': 'Private Ownership', 'X': 'Goverment/Private Instiution Ownership'};
+            var dict_data = otype_dict[dict_data]
+            break;
+        };
         table += '<tr>';
         table += '<td>' + ls[i] + '</td>';
-        table += '<td>' + dict[ls[i]] + '</td>';
+        table += '<td>' + dict_data + '</td>';
         table += '</tr>';
-      }
-    }
+      };
+    };
     table += '</tbody>' + '</table>'
   }
   return table
@@ -197,12 +208,12 @@ function CreateInfoTabData(dict) {
   k += '<p>' + Boro + ' (Borough ' + dict['BoroCode'] + ') | Block ' + dict['Block'] + ' | Lot ' + dict['Lot'] + '</p>'
   k += '<p>' + 'BBL: ' + dict['BBL'] + '</p>'
   k += '<h4>Building Information</h4>';
-  var list_info = ["OwnerName", "LandUse", "BldgClass", "YearBuilt", "ZoneDist1", "ZoneDist2"];
+  var list_info = ["OwnerName", "OwnerType","LandUse", "BldgClass", "YearBuilt", "ZoneDist1", "ZoneDist2"];
   k += CreateTableFromDICT(dict, list_info);
   k += '<h4>Development</h4>';
   // k+='<span>Building Potential</span>' ;
   k += CreateDevBar(dict);
-  var list_info = ["BuiltFAR", "ResidFAR", "CommFAR", "FacilFAR", "LotFront", "LotDepth", "LotArea"];
+  var list_info = ["BuiltFAR", "ResidFAR", "CommFAR", "FacilFAR", "LotFront", "LotDepth", "LotArea","SplitZone"];
   k += CreateTableFromDICT(dict, list_info);
   k += '<h4>Other</h4>';
   k += CreateTableFromDICT(dict, []);
@@ -488,11 +499,11 @@ map.on("load", function () {
     } else {
       map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
       document.getElementById('legend').innerHTML = '<h5>Exceed FAR</h5>' +
-      '<div><span style="background: hsla(146, 94%, 31%, 0.71)"></span>10%</div>' +
-      '<div><span style="background: hsla(146, 88%, 37%, 0.5)"></span>20%</div>' +
-      '<div><span style="background: hsla(94, 87%, 53%, 0.5)"></span>30%</div>' +
-      '<div><span style="background: hsla(73, 91%, 78%, 0.6)"></span>40%</div>' +
-      '<div><span style="background: hsla(0, 89%, 72%, 0.5)"></span>50%</div>'
+        '<div><span style="background: hsla(146, 94%, 31%, 0.71)"></span>10%</div>' +
+        '<div><span style="background: hsla(146, 88%, 37%, 0.5)"></span>20%</div>' +
+        '<div><span style="background: hsla(94, 87%, 53%, 0.5)"></span>30%</div>' +
+        '<div><span style="background: hsla(73, 91%, 78%, 0.6)"></span>40%</div>' +
+        '<div><span style="background: hsla(0, 89%, 72%, 0.5)"></span>50%</div>'
     }
   });
   document.getElementById('deed-layer').addEventListener('input', function (e) {
@@ -505,13 +516,13 @@ map.on("load", function () {
       map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
       map.setLayoutProperty('deed-point', 'visibility', 'visible');
       document.getElementById('legend').innerHTML = '<h5>Price/ZFA</h5>' +
-      '<div><span style="background: rgba(26,152,80,0.8)"></span>$600/ft</div>' +
-      '<div><span style="background: rgba(145,207,96,0.8)"></span>$700/ft</div>' +
-      '<div><span style="background: rgba(217,239,139,0.8)"></span>$800/ft</div>' +
-      '<div><span style="background: rgba(255,255,191,0.8)"></span>$900/ft</div>' +
-      '<div><span style="background: rgba(254,224,139,0.8)"></span>$1,000/ft</div>' +
-      '<div><span style="background: rgba(252,141,89,0.8)"></span>$1,200/ft</div>' +
-      '<div><span style="background: rgba(215,48,39,0.8)"></span>$3,000/ft</div>'
+        '<div><span style="background: rgba(26,152,80,0.8)"></span>$600/ft</div>' +
+        '<div><span style="background: rgba(145,207,96,0.8)"></span>$700/ft</div>' +
+        '<div><span style="background: rgba(217,239,139,0.8)"></span>$800/ft</div>' +
+        '<div><span style="background: rgba(255,255,191,0.8)"></span>$900/ft</div>' +
+        '<div><span style="background: rgba(254,224,139,0.8)"></span>$1,000/ft</div>' +
+        '<div><span style="background: rgba(252,141,89,0.8)"></span>$1,200/ft</div>' +
+        '<div><span style="background: rgba(215,48,39,0.8)"></span>$3,000/ft</div>'
     }
   });
   document.getElementById('ozone-layer').addEventListener('input', function (e) {
@@ -524,64 +535,6 @@ map.on("load", function () {
     }
   });
 
-  // var toggleableLayerIds = ['price_zfa', 'deed-point', 'pluto-far', 'ozone-borders'];
-
-  // for (var i = 0; i < toggleableLayerIds.length; i++) {
-  //   var id = toggleableLayerIds[i];
-
-  //   var link = document.createElement('a');
-  //   link.href = '#';
-  //   link.className = 'active';
-  //   link.textContent = id;
-
-  //   link.onclick = function (e) {
-  //     var clickedLayer = this.textContent;
-  //     e.preventDefault();
-  //     e.stopPropagation();
-
-  //     var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
-  //     if (visibility === 'visible') {
-  //       map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-  //       this.className = '';
-  //     } else {
-  //       this.className = 'active';
-  //       map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-  //       switch (clickedLayer) {
-  //         case 'pluto-fills':
-  //           document.getElementById('legend').innerHTML = '<h5>Land Use</h5>' +
-  //             '<div><span style="background: hsla(65, 82%, 85%, 0.8)"></span>Residential</div>' +
-  //             '<div><span style="background: hsla(360, 70%, 85%, 0.8)"></span>Commercial</div>' +
-  //             '<div><span style="background: hsla(29, 85%, 65%, 0.3)"></span>Fixed Use</div>' +
-  //             '<div><span style="background: hsla(118, 100%, 80%, 0.8)"></span>Open Space/Parking</div>' +
-  //             '<div><span style="background: hsla(180, 100%, 54%, 0.8)"></span>Vacant Land</div>' +
-  //             '<div><span style="background: hsla(239, 82%, 81%, 0.8)"></span>Others</div>'
-  //           break;
-  //         case 'price_zfa':
-  //           document.getElementById('legend').innerHTML = '<h5>Price/ZFA</h5>' +
-  //             '<div><span style="background: rgba(26,152,80,0.8)"></span>$600/ft</div>' +
-  //             '<div><span style="background: rgba(145,207,96,0.8)"></span>$700/ft</div>' +
-  //             '<div><span style="background: rgba(217,239,139,0.8)"></span>$800/ft</div>' +
-  //             '<div><span style="background: rgba(255,255,191,0.8)"></span>$900/ft</div>' +
-  //             '<div><span style="background: rgba(254,224,139,0.8)"></span>$1,000/ft</div>' +
-  //             '<div><span style="background: rgba(252,141,89,0.8)"></span>$1,200/ft</div>' +
-  //             '<div><span style="background: rgba(215,48,39,0.8)"></span>$3,000/ft</div>'
-  //           break;
-  //         case 'pluto-far':
-  //           document.getElementById('legend').innerHTML = '<h5>Exceed FAR</h5>' +
-  //             '<div><span style="background: hsla(146, 94%, 31%, 0.71)"></span>10%</div>' +
-  //             '<div><span style="background: hsla(146, 88%, 37%, 0.5)"></span>20%</div>' +
-  //             '<div><span style="background: hsla(94, 87%, 53%, 0.5)"></span>30%</div>' +
-  //             '<div><span style="background: hsla(73, 91%, 78%, 0.6)"></span>40%</div>' +
-  //             '<div><span style="background: hsla(0, 89%, 72%, 0.5)"></span>50%</div>'
-
-
-  //       };
-  //     }
-  //   };
-  //   var layers = document.getElementById('menu');
-  //   layers.appendChild(link);
-  // }
 });
 var popup = new mapboxgl.Popup({
   closeButton: false,
