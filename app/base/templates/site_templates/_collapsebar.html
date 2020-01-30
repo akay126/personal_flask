@@ -1,8 +1,32 @@
 <div id="map-filter-content" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
   <ul class="list-group">
+    <div class='row'>
+      <li class="list-item">
+        <div class="form-check">
+          <div class="toggle">
+            <input type="checkbox" class="check" id="ozone-layer">
+            <b class="b switch"></b>
+            <b class="b track"></b>
+          </div>
+          <label for="ozone-layer" style="margin-left: 45px;"><strong>Opportunity Zone Layer</strong></label>
+        </div>
+      </li>
+    </div>
+    <div class='row'>
+      <li class="list-item">
+        <div class="form-check">
+          <div class="toggle">
+            <input type="checkbox" class="check" id="lot-layer">
+            <b class="b switch"></b>
+            <b class="b track"></b>
+          </div>
+          <label for="lot-layer" style="margin-left: 45px;"><strong>Lot Parcel Layer</strong></label>
+        </div>
+      </li>
+    </div>
     <li class="list-item">
-      <label for="filter">Zoning</label>
+      <label for="filter">Zones</label>
       <fieldset class="form-group">
         <div class="row">
           <div class="form-check-inline" id="filter">
@@ -19,7 +43,7 @@
       </fieldset>
 
     </li>
-    <li class="list-item" id = "toggle-group">
+    <li class="list-item" id="toggle-group">
       <div class="row">
         <div class="form-check-inline">
           <div class="form-check">
@@ -42,7 +66,7 @@
       </div>
 
     </li>
-    <li class="list-item" id = "toggle-group">
+    <li class="list-item" id="toggle-group">
       <div class="row">
         <div class="form-check-inline">
           <div class="form-check">
@@ -63,7 +87,28 @@
           </div>
         </div>
       </div>
-
+    </li>
+    <li class="list-item" id="toggle-group">
+      <div class="row">
+        <div class="form-check-inline">
+          <div class="form-check">
+            <div class="toggle">
+              <input type="checkbox" class="check" id="vacant" checked>
+              <b class="b switch"></b>
+              <b class="b track"></b>
+            </div>
+            <label for="vacant" style="margin-left: 45px;">Vacant Land</label>
+          </div>
+          <div class="form-check">
+            <div class="toggle">
+              <input type="checkbox" class="check" id="others" checked>
+              <b class="b switch"></b>
+              <b class="b track"></b>
+            </div>
+            <label for="others" style="margin-left: 45px;">Others</label>
+          </div>
+        </div>
+      </div>
     </li>
     <li class="list-item">
       <label for="yearbuilt">Years Built</label>
@@ -81,6 +126,30 @@
           onchange=updateText(this.id,this.value)>
       </div>
     </li>
+    <div class='row'>
+      <li class="list-item">
+        <div class="form-check">
+          <div class="toggle">
+            <input type="checkbox" class="check" id="far-layer">
+            <b class="b switch"></b>
+            <b class="b track"></b>
+          </div>
+          <label for="far-layer" style="margin-left: 45px;"><strong>FAR Layer</strong></label>
+        </div>
+      </li>
+    </div>
+    <div class='row'>
+      <li class="list-item">
+        <div class="form-check">
+          <div class="toggle">
+            <input type="checkbox" class="check" id="deed-layer">
+            <b class="b switch"></b>
+            <b class="b track"></b>
+          </div>
+          <label for="deed-layer" style="margin-left: 45px;"><strong>Deed Layer</strong></label>
+        </div>
+      </li>
+    </div>
   </ul>
 </div>
 

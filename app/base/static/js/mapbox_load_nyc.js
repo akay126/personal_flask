@@ -83,10 +83,12 @@ function CreateTableFromDICT(dict, ls) {
   } else {
     table = '<table class = "table">' + '<tbody>'
     for (var i in ls) {
-      table += '<tr>';
-      table += '<td>' + ls[i] + '</td>';
-      table += '<td>' + dict[ls[i]] + '</td>';
-      table += '</tr>';
+      if (dict[ls[i]] !== undefined) {
+        table += '<tr>';
+        table += '<td>' + ls[i] + '</td>';
+        table += '<td>' + dict[ls[i]] + '</td>';
+        table += '</tr>';
+      }
     }
     table += '</tbody>' + '</table>'
   }
@@ -96,7 +98,7 @@ function CreateDevBar(dict) {
   var ls = ['ResArea', 'OfficeArea', 'RetailArea', 'GarageArea', 'StrgeArea', 'FactryArea', 'OtherArea'];
   // var total_area = [dict['ResArea'], dict['OfficeArea'], dict['RetailArea'], dict['GarageArea'], dict['StrgeArea'], dict['FactryArea'], dict['OtherArea']].reduce((a, b) => a + b, 0);
   var zfa_area = Math.floor(dict['LotArea'] * Math.max(dict['ResidFAR'], dict['CommFAR'], dict['FacilFAR']))
-  var k = '<div class="progress" style="height:30px;">'
+  var k = '<div class="progress" style="height:50px;">'
   var accum_per = 0;
   for (var i in ls) {
     var area = dict[ls[i]];
@@ -143,25 +145,31 @@ function CreateDevBar(dict) {
         var color_1 = '';
     };
     if (area > 0) {
-      k += `<div class="progress-bar ${color}" role="progressbar" style="width: ${area_percentage}%; background-color: ${color_1};" aria-valuenow="${area_percentage}" aria-valuemin="0" aria-valuemax="100">${name}: ${area_percentage}%</div>`
+      var area = parseInt(area).toLocaleString();
+      k += `<div class="progress-bar ${color}" role="progressbar" style="width: ${area_percentage}%; background-color: ${color_1};" aria-valuenow="${area_percentage}" aria-valuemin="0" aria-valuemax="100">${name}: ${area_percentage}% (${area} ft&sup2)</div>`
       accum_per += area_percentage;
     };
   };
 
   if (accum_per == 0 && dict['BldgArea'] > 0) {
-    var bldg_area = Math.floor(dict['BldgArea'] / dict['LotArea'] * 100);
+    var bldg_per = Math.floor(dict['BldgArea'] / dict['LotArea'] * 100);
+    var bldg_area = parseInt(dic['BldgArea']).toLocaleString();
     var color = 'progress-bar-striped bg-success'
-    k += `<div class="progress-bar" role="progressbar" style="width: ${bldg_area}%;" aria-valuenow="${bldg_area}" aria-valuemin="0" aria-valuemax="100">Other: ${bldg_area}%</div>`
-    accum_per += bldg_area
+    k += `<div class="progress-bar" role="progressbar" style="width: ${bldg_per}%; aria-valuenow="${bldg_per}" aria-valuemin="0" aria-valuemax="100">Other: ${bldg_per}% (${bldg_area} ft&sup2)</div>`
+    accum_per += bldg_per
   };
   if (accum_per < 100) {
-    var air_area = 100 - accum_per
+    var air_per = 100 - accum_per
     var color = 'progress-bar-striped bg-success'
-    k += `<div class="progress-bar ${color}" role="progressbar" style="width: ${air_area}%;" aria-valuenow="${air_area}" aria-valuemin="0" aria-valuemax="100">AirRights: ${air_area}%</div>`
+    var air_area = zfa_area * (air_per / 100)
+    var air_area = parseInt(air_area).toLocaleString();
+    k += `<div class="progress-bar ${color}" role="progressbar" style="width: ${air_per}%; aria-valuenow="${air_per}" aria-valuemin="0" aria-valuemax="100">AirRights: ${air_per}% (${air_area} ft&sup2)</div>`
   };
   k += '</div>'
-  if (accum_per > 100) {
 
+  var zfa_area = parseInt(zfa_area).toLocaleString();
+  k += `<div style= "font-size: 12px;">Total Buildable Area: ${zfa_area} ft&sup2</div>`
+  if (accum_per > 100) {
     k += `<div style= "font-size: 12px; color:red; padding-bottom: 10px;" >Overdeveloped: ${accum_per - 100}%</div>`
   }
   return k;
@@ -186,9 +194,6 @@ function CreateInfoTabData(dict) {
       break;
   };
   var k = '<h2>' + dict['Address'] + ', ' + dict['ZipCode'] + '</h2>';
-  // k += '<p id = "boro">' + dict['BoroCode'] + '</p>'
-  // k += '<p id = "block">' + dict['Block'] + '</p>'
-  // k += '<p id = "lot">' + dict['Lot'] + '</p>'
   k += '<p>' + Boro + ' (Borough ' + dict['BoroCode'] + ') | Block ' + dict['Block'] + ' | Lot ' + dict['Lot'] + '</p>'
   k += '<p>' + 'BBL: ' + dict['BBL'] + '</p>'
   k += '<h4>Building Information</h4>';
@@ -430,19 +435,19 @@ map.on("load", function () {
   // Filter section
   var filteryear = ['<', ['number', ['get', 'YearBuilt']], 2020];
   var filterlotfront = ['>', ['number', ['get', 'LotFront']], 0];
-  var filterland = ['!=', ['number', ['get', 'OZone']],2]
+  var filterland = ['!=', ['number', ['get', 'OZone']], 2]
 
   document.getElementById('yearbuilt').addEventListener('input', function (e) {
     var year = parseInt(e.target.value);
     // update the map
     filteryear = ['<', ['number', ['get', 'YearBuilt']], year]
-    map.setFilter('pluto-fills', ['all', filteryear, filterlotfront,filterland]);
+    map.setFilter('pluto-fills', ['all', filteryear, filterlotfront, filterland]);
   });
   document.getElementById('lotfront').addEventListener('input', function (e) {
     var lotfront = parseInt(e.target.value);
     // update the mapS
     filterlotfront = ['>', ['number', ['get', 'LotFront']], lotfront]
-    map.setFilter('pluto-fills', ['all', filteryear, filterlotfront,filterland]);
+    map.setFilter('pluto-fills', ['all', filteryear, filterlotfront, filterland]);
   });
   document.getElementById('filter').addEventListener('change', function (e) {
     var land = e.target.value;
@@ -451,72 +456,133 @@ map.on("load", function () {
     } else if (land == 'oz') {
       filterland = ['==', ['number', ['get', 'OZone']], parseInt('1')];
     }
-    map.setFilter('pluto-fills', ['all', filteryear,filterlotfront,filterland]);
+    map.setFilter('pluto-fills', ['all', filteryear, filterlotfront, filterland]);
   });
+
   document.getElementById('height').addEventListener('input', function (e) {
     var height = parseInt(e.target.value);
     map.setPaintProperty('unique-id', 'fill-extrusion-height', height);
   });
-  
+
+  document.getElementById('lot-layer').addEventListener('input', function (e) {
+    var clickedLayer = 'pluto-fills'
+    var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+    if (visibility === 'visible') {
+      map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    } else {
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+      document.getElementById('legend').innerHTML = '<h5>Land Use</h5>' +
+        '<div><span style="background: hsla(65, 82%, 85%, 0.8)"></span>Residential</div>' +
+        '<div><span style="background: hsla(360, 70%, 85%, 0.8)"></span>Commercial</div>' +
+        '<div><span style="background: hsla(29, 85%, 65%, 0.3)"></span>Fixed Use</div>' +
+        '<div><span style="background: hsla(118, 100%, 80%, 0.8)"></span>Open Space/Parking</div>' +
+        '<div><span style="background: hsla(180, 100%, 54%, 0.8)"></span>Vacant Land</div>' +
+        '<div><span style="background: hsla(239, 82%, 81%, 0.8)"></span>Others</div>'
+    }
+  });
+  document.getElementById('far-layer').addEventListener('input', function (e) {
+    var clickedLayer = 'pluto-far'
+    var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+    if (visibility === 'visible') {
+      map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    } else {
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+      document.getElementById('legend').innerHTML = '<h5>Exceed FAR</h5>' +
+      '<div><span style="background: hsla(146, 94%, 31%, 0.71)"></span>10%</div>' +
+      '<div><span style="background: hsla(146, 88%, 37%, 0.5)"></span>20%</div>' +
+      '<div><span style="background: hsla(94, 87%, 53%, 0.5)"></span>30%</div>' +
+      '<div><span style="background: hsla(73, 91%, 78%, 0.6)"></span>40%</div>' +
+      '<div><span style="background: hsla(0, 89%, 72%, 0.5)"></span>50%</div>'
+    }
+  });
+  document.getElementById('deed-layer').addEventListener('input', function (e) {
+    var clickedLayer = 'price_zfa'
+    var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+    if (visibility === 'visible') {
+      map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+      map.setLayoutProperty('deed-point', 'visibility', 'none');
+    } else {
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+      map.setLayoutProperty('deed-point', 'visibility', 'visible');
+      document.getElementById('legend').innerHTML = '<h5>Price/ZFA</h5>' +
+      '<div><span style="background: rgba(26,152,80,0.8)"></span>$600/ft</div>' +
+      '<div><span style="background: rgba(145,207,96,0.8)"></span>$700/ft</div>' +
+      '<div><span style="background: rgba(217,239,139,0.8)"></span>$800/ft</div>' +
+      '<div><span style="background: rgba(255,255,191,0.8)"></span>$900/ft</div>' +
+      '<div><span style="background: rgba(254,224,139,0.8)"></span>$1,000/ft</div>' +
+      '<div><span style="background: rgba(252,141,89,0.8)"></span>$1,200/ft</div>' +
+      '<div><span style="background: rgba(215,48,39,0.8)"></span>$3,000/ft</div>'
+    }
+  });
+  document.getElementById('ozone-layer').addEventListener('input', function (e) {
+    var clickedLayer = 'ozone-borders'
+    var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+    if (visibility === 'visible') {
+      map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    } else {
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+    }
+  });
+
+  // var toggleableLayerIds = ['price_zfa', 'deed-point', 'pluto-far', 'ozone-borders'];
+
+  // for (var i = 0; i < toggleableLayerIds.length; i++) {
+  //   var id = toggleableLayerIds[i];
+
+  //   var link = document.createElement('a');
+  //   link.href = '#';
+  //   link.className = 'active';
+  //   link.textContent = id;
+
+  //   link.onclick = function (e) {
+  //     var clickedLayer = this.textContent;
+  //     e.preventDefault();
+  //     e.stopPropagation();
+
+  //     var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+  //     if (visibility === 'visible') {
+  //       map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+  //       this.className = '';
+  //     } else {
+  //       this.className = 'active';
+  //       map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+  //       switch (clickedLayer) {
+  //         case 'pluto-fills':
+  //           document.getElementById('legend').innerHTML = '<h5>Land Use</h5>' +
+  //             '<div><span style="background: hsla(65, 82%, 85%, 0.8)"></span>Residential</div>' +
+  //             '<div><span style="background: hsla(360, 70%, 85%, 0.8)"></span>Commercial</div>' +
+  //             '<div><span style="background: hsla(29, 85%, 65%, 0.3)"></span>Fixed Use</div>' +
+  //             '<div><span style="background: hsla(118, 100%, 80%, 0.8)"></span>Open Space/Parking</div>' +
+  //             '<div><span style="background: hsla(180, 100%, 54%, 0.8)"></span>Vacant Land</div>' +
+  //             '<div><span style="background: hsla(239, 82%, 81%, 0.8)"></span>Others</div>'
+  //           break;
+  //         case 'price_zfa':
+  //           document.getElementById('legend').innerHTML = '<h5>Price/ZFA</h5>' +
+  //             '<div><span style="background: rgba(26,152,80,0.8)"></span>$600/ft</div>' +
+  //             '<div><span style="background: rgba(145,207,96,0.8)"></span>$700/ft</div>' +
+  //             '<div><span style="background: rgba(217,239,139,0.8)"></span>$800/ft</div>' +
+  //             '<div><span style="background: rgba(255,255,191,0.8)"></span>$900/ft</div>' +
+  //             '<div><span style="background: rgba(254,224,139,0.8)"></span>$1,000/ft</div>' +
+  //             '<div><span style="background: rgba(252,141,89,0.8)"></span>$1,200/ft</div>' +
+  //             '<div><span style="background: rgba(215,48,39,0.8)"></span>$3,000/ft</div>'
+  //           break;
+  //         case 'pluto-far':
+  //           document.getElementById('legend').innerHTML = '<h5>Exceed FAR</h5>' +
+  //             '<div><span style="background: hsla(146, 94%, 31%, 0.71)"></span>10%</div>' +
+  //             '<div><span style="background: hsla(146, 88%, 37%, 0.5)"></span>20%</div>' +
+  //             '<div><span style="background: hsla(94, 87%, 53%, 0.5)"></span>30%</div>' +
+  //             '<div><span style="background: hsla(73, 91%, 78%, 0.6)"></span>40%</div>' +
+  //             '<div><span style="background: hsla(0, 89%, 72%, 0.5)"></span>50%</div>'
 
 
-
-  var toggleableLayerIds = ['pluto-fills', 'price_zfa', 'deed-point', 'pluto-far','ozone-borders'];
-
-  for (var i = 0; i < toggleableLayerIds.length; i++) {
-    var id = toggleableLayerIds[i];
-
-    var link = document.createElement('a');
-    link.href = '#';
-    link.className = 'active';
-    link.textContent = id;
-
-    link.onclick = function (e) {
-      var clickedLayer = this.textContent;
-      e.preventDefault();
-      e.stopPropagation();
-
-      var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
-      if (visibility === 'visible') {
-        map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-        this.className = '';
-      } else {
-        this.className = 'active';
-        map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-        switch (clickedLayer) {
-          case 'pluto-fills':
-            document.getElementById('legend').innerHTML = '<h5>Land Use</h5>' +
-              '<div><span style="background: hsla(65, 82%, 85%, 0.8)"></span>Residential</div>' +
-              '<div><span style="background: hsla(360, 70%, 85%, 0.8)"></span>Commercial</div>' +
-              '<div><span style="background: hsla(29, 85%, 65%, 0.3)"></span>Fixed Use</div>' +
-              '<div><span style="background: hsla(118, 100%, 80%, 0.8)"></span>Open Space/Parking</div>' +
-              '<div><span style="background: hsla(180, 100%, 54%, 0.8)"></span>Vacant Land</div>' +
-              '<div><span style="background: hsla(239, 82%, 81%, 0.8)"></span>Others</div>'
-            break;
-          case 'price_zfa':
-            document.getElementById('legend').innerHTML = '<h5>Price/ZFA</h5>' +
-              '<div><span style="background: rgba(26,152,80,0.8)"></span>$600/ft</div>' +
-              '<div><span style="background: rgba(145,207,96,0.8)"></span>$700/ft</div>' +
-              '<div><span style="background: rgba(217,239,139,0.8)"></span>$800/ft</div>' +
-              '<div><span style="background: rgba(255,255,191,0.8)"></span>$900/ft</div>' +
-              '<div><span style="background: rgba(254,224,139,0.8)"></span>$1,000/ft</div>' +
-              '<div><span style="background: rgba(252,141,89,0.8)"></span>$1,200/ft</div>' +
-              '<div><span style="background: rgba(215,48,39,0.8)"></span>$3,000/ft</div>'
-            break;
-            case 'pluto-far':
-
-
-        };
-      }
-    };
-
-    var layers = document.getElementById('menu');
-    layers.appendChild(link);
-  }
-
+  //       };
+  //     }
+  //   };
+  //   var layers = document.getElementById('menu');
+  //   layers.appendChild(link);
+  // }
 });
-
 var popup = new mapboxgl.Popup({
   closeButton: false,
   closeOnClick: false
@@ -567,10 +633,8 @@ map.on('click', 'pluto-fills', function (e) {
 
 
   CreateInfoTabData(Objdict);
-  CreateTimelineARCIS(boro, block, lot);
-  CreateTimelineDataDOB(boro, block, lot);
-
-
+  // CreateTimelineARCIS(boro, block, lot);
+  // CreateTimelineDataDOB(boro, block, lot);
 
   hoveredStateId = e.features[0].id;
   map.setFeatureState(
@@ -582,6 +646,20 @@ map.on('click', 'pluto-fills', function (e) {
     .addTo(map);
 
 
+});
+map.on('click', 'deed-point', function (e) {
+  map.getCanvas().style.cursor = 'pointer';
+  if (e.features.length > 0) {
+    var doc = e.features[0].properties.DOCUMENT_I
+    var doc_date = 'Document Date: ' + e.features[0].properties.DOC_DATE
+    var price = 'Document amount: $' + parseInt(e.features[0].properties.DOC_AMOUNT).toLocaleString();
+    var p_zfa = 'Price/ZFA:  $' + parseInt(e.features[0].properties.PRICE_ZFA).toLocaleString() + '/ft';
+    var htmlcontent = `<div>Document ID :<a href = "https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${doc}" target = "_blank">${doc}</a><div>${doc_date}</div></div><div>${price}</div><div>${p_zfa}</div>`;
+    popup
+      .setLngLat(e.lngLat)
+      .setHTML(htmlcontent)
+      .addTo(map);
+  }
 });
 var hoveredStateId = null;
 map.on('mousemove', 'pluto-fills', function (e) {
@@ -614,22 +692,6 @@ map.on('mousemove', 'price_zfa', function (e) {
       .addTo(map);
   }
 });
-map.on('click', 'deed-point', function (e) {
-  map.getCanvas().style.cursor = 'pointer';
-  if (e.features.length > 0) {
-    var doc = e.features[0].properties.DOCUMENT_I
-    var doc_date = 'Document Date: ' + e.features[0].properties.DOC_DATE
-    var price = 'Document amount: $' + parseInt(e.features[0].properties.DOC_AMOUNT).toLocaleString();
-    var p_zfa = 'Price/ZFA:  $' + parseInt(e.features[0].properties.PRICE_ZFA).toLocaleString() + '/ft';
-    var htmlcontent = `<div>Document ID :<a href = "https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=${doc}" target = "_blank">${doc}</a><div>${doc_date}</div></div><div>${price}</div><div>${p_zfa}</div>`;
-    popup
-      .setLngLat(e.lngLat)
-      .setHTML(htmlcontent)
-      .addTo(map);
-  }
-});
-
-
 map.on('mouseleave', 'pluto-fills', function () {
   if (hoveredStateId) {
     map.setFeatureState(
